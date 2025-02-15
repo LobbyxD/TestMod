@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "brunite",
+  "ingredient": {
+    "item": "testmod:raw_brunite"
+  },
+  "result": {
+    "id": "testmod:brunite"
+  }
+}

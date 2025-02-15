@@ -1,0 +1,8 @@
+{
+"item.testmod.brunite":"Brunite",
+"item.testmod.raw_brunite":"Raw Brunite",
+"block.testmod.brunite_block":"Block of Brunite",
+"block.testmod.brunite_ore":"Brunite Ore",
+"block.testmod.brunite_deepslate_ore":"Brunite Deepslate Ore",
+"creativetab.testmod.brunite_items":"Brunite Items"
+}

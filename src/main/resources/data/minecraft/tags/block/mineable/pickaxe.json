@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "testmod:brunite_block",
+    "testmod:raw_brunite_block",
+    "testmod:brunite_ore",
+    "testmod:brunite_deepslate_ore"
+  ]
+}

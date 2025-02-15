@@ -1,6 +1,11 @@
 package com.bruno.testmod;
 
+import com.bruno.testmod.block.ModBlocks;
+import com.bruno.testmod.item.ModCreativeModeTabs;
+import com.bruno.testmod.item.ModItems;
 import com.mojang.logging.LogUtils;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -12,7 +17,10 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
+
+import java.util.Map;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(TestMod.MOD_ID)
@@ -24,14 +32,17 @@ public class TestMod {
 
     public TestMod(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
+
         modEventBus.addListener(this::commonSetup);
-        // Register ourselves for server and other game events we are interested in
+
         MinecraftForge.EVENT_BUS.register(this);
 
+        ModCreativeModeTabs.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
-        // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
-        // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
+
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
@@ -41,7 +52,21 @@ public class TestMod {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
+        // Items
+        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+            for (Map.Entry<String, RegistryObject<Item>> entry : ModItems.ITEM_MAP.entrySet()) {
+                RegistryObject<Item> itemRegistryObject = entry.getValue();
+                event.accept(itemRegistryObject);
+            }
+        }
 
+        // Building Blocks
+        if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+            event.accept(ModBlocks.BRUNITE_BLOCK);
+            event.accept(ModBlocks.RAW_BRUNITE_BLOCK);
+            event.accept(ModBlocks.BRUNITE_ORE);
+            event.accept(ModBlocks.BRUNITE_DEEPSLATE_ORE);
+        }
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
