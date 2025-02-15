@@ -1,6 +1,7 @@
 package com.bruno.testmod.item;
 
 import com.bruno.testmod.TestMod;
+import com.bruno.testmod.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -23,6 +24,8 @@ public class ModCreativeModeTabs {
                         for (Map.Entry<String, RegistryObject<Item>> entry : ModItems.ITEM_MAP.entrySet()) {
                             output.accept(entry.getValue().get());
                         }
+                        output.accept(ModBlocks.MAGIC_BLOCK.get());
+
                     }).build());
 
 

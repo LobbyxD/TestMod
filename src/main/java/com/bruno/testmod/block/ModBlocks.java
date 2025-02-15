@@ -1,6 +1,7 @@
 package com.bruno.testmod.block;
 
 import com.bruno.testmod.TestMod;
+import com.bruno.testmod.block.custom.MagicBlock;
 import com.bruno.testmod.item.ModItems;
 
 import net.minecraft.util.valueproviders.UniformInt;
@@ -49,6 +50,12 @@ public class ModBlocks {
                     strength(1f).
                     requiresCorrectToolForDrops().
                     sound(SoundType.DEEPSLATE)
+            ));
+
+    public static final RegistryObject<Block> MAGIC_BLOCK = registerBlock("magic_block",
+            () -> new MagicBlock(BlockBehaviour.Properties.of().
+                    strength(2f).
+                    requiresCorrectToolForDrops()
             ));
 
 

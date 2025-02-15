@@ -1,0 +1,45 @@
+{
+  "items": {
+    "tools": {
+      "chisel": {
+        "displayName": "Brown Chisel",
+        "durability": 32
+      }
+    },
+    "material": {
+      "brunite": {
+        "displayName": "Brunite",
+        "isFuel": {
+          "status": false,
+          "burntime": 0
+        }
+      },
+      "raw_brunite": {
+        "displayName": "Raw Brunite",
+        "isFuel": {
+          "status": false,
+          "burntime": 0
+        }
+      },
+      "bruno_ashes": {
+        "displayName":"Bruno's Ashes",
+        "isFuel": {
+          "status": true,
+          "burntime": 1200
+        }
+      }
+    },
+    "food": {
+      "kohlrabi": {
+        "displayName": "Kohlrabi",
+        "tooltip": ""
+      }
+    }
+  },
+  "blocks": {
+    "decoration": {
+    },
+    "utility": {
+    }
+  }
+}
