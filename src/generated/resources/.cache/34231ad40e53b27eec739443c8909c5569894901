@@ -1,0 +1,9 @@
+// 1.21.1	2025-02-16T01:24:43.5307974	Tags for minecraft:block mod id testmod
+0a583b9c5a8611cbab4ddd7b2f91c3afc09c60f7 data/minecraft/tags/block/fences.json
+3908b4f4261da97dc89723824bf9ddc541627889 data/minecraft/tags/block/fence_gates.json
+668ad4fd896bd10f172652b9e0371729a766379e data/minecraft/tags/block/mineable/pickaxe.json
+58535ea6d0a3f041164d668719fae73e8d4ac81b data/minecraft/tags/block/needs_diamond_tool.json
+58535ea6d0a3f041164d668719fae73e8d4ac81b data/minecraft/tags/block/needs_iron_tool.json
+73c3ded611c149102053bbc051d74b6010da989f data/minecraft/tags/block/walls.json
+bc95a9aa575df8b015248ea5656ba5cf5d30abb7 data/testmod/tags/block/incorrect_for_brunite_tool.json
+c3b4d22e0327ae8bbbef36948ae3c6db6cc7d181 data/testmod/tags/block/needs_brunite_tool.json

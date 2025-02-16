@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "testmod:block/brunite_slab"
+    },
+    "type=double": {
+      "model": "testmod:block/brunite_block"
+    },
+    "type=top": {
+      "model": "testmod:block/brunite_slab_top"
+    }
+  }
+}

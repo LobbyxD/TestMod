@@ -1,6 +1,7 @@
 package com.bruno.testmod;
 
 import com.bruno.testmod.block.ModBlocks;
+import com.bruno.testmod.component.ModDataComponentTypes;
 import com.bruno.testmod.item.ModCreativeModeTabs;
 import com.bruno.testmod.item.ModItems;
 import com.mojang.logging.LogUtils;
@@ -41,6 +42,8 @@ public class TestMod {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
 
+        ModDataComponentTypes.register(modEventBus);
+
         modEventBus.addListener(this::addCreative);
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -54,10 +57,16 @@ public class TestMod {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         // Items
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            for (Map.Entry<String, RegistryObject<Item>> entry : ModItems.ITEM_MAP.entrySet()) {
-                RegistryObject<Item> itemRegistryObject = entry.getValue();
-                event.accept(itemRegistryObject);
-            }
+            event.accept(ModItems.BRUNITE);
+            event.accept(ModItems.RAW_BRUNITE);
+            event.accept(ModItems.BRUNO_ASHES);
+            event.accept(ModItems.KOHLRABI);
+            event.accept(ModItems.CHISEL);
+
+//            for (Map.Entry<String, RegistryObject<Item>> entry : ModItems.ITEM_MAP.entrySet()) {
+//                RegistryObject<Item> itemRegistryObject = entry.getValue();
+//                event.accept(itemRegistryObject);
+//            }
         }
 
         // Building Blocks
@@ -66,6 +75,7 @@ public class TestMod {
             event.accept(ModBlocks.RAW_BRUNITE_BLOCK);
             event.accept(ModBlocks.BRUNITE_ORE);
             event.accept(ModBlocks.BRUNITE_DEEPSLATE_ORE);
+            event.accept(ModBlocks.MAGIC_BLOCK);
         }
     }
 

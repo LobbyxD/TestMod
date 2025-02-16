@@ -38,8 +38,8 @@ public class MagicBlock extends Block {
             if(isValidItem(itemEntity.getItem())) {
                 itemEntity.setItem(new ItemStack(Items.IRON_INGOT, itemEntity.getItem().getCount()));
             }
-            if(itemEntity.getItem().getItem() == ModItems.ITEM_MAP.get("raw_brunite").get()) {
-                itemEntity.setItem(new ItemStack(ModItems.ITEM_MAP.get("brunite").get(), itemEntity.getItem().getCount()));
+            if(itemEntity.getItem().getItem() == ModItems.RAW_BRUNITE.get()) {
+                itemEntity.setItem(new ItemStack(ModItems.BRUNITE.get(), itemEntity.getItem().getCount()));
             }
             else if(itemEntity.getItem().getItem() == Items.RABBIT_FOOT) {
                 itemEntity.setItem(new ItemStack(Items.COAL, itemEntity.getItem().getCount()));

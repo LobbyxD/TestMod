@@ -3,84 +3,89 @@ package com.bruno.testmod.item;
 import com.bruno.testmod.TestMod;
 import com.bruno.testmod.item.custom.ChiselItem;
 import com.bruno.testmod.item.custom.FuelItem;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.bruno.testmod.item.custom.HammerItem;
+
+import com.bruno.testmod.item.custom.ModArmorItem;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, TestMod.MOD_ID);
 
-//    public static final RegistryObject<Item> BRUNRITE = ITEMS.register("brunrite",
-//            () -> new Item(new Item.Properties().setId(ITEMS.key("brunite"))));
-//public static  final RegistryObject<Item> CHISEL = ITEMS.register("chisel",
-//        () -> new ChiselItem(new Item.Properties().durability(32)));
+    public static final RegistryObject<Item> BRUNITE = ITEMS.register("brunite",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RAW_BRUNITE = ITEMS.register("raw_brunite",
+            () -> new Item(new Item.Properties()));
 
-    public static final Map<String, RegistryObject<Item>> ITEM_MAP = new HashMap<>();
+    public static final RegistryObject<Item> CHISEL = ITEMS.register("chisel",
+            () -> new ChiselItem(new Item.Properties().durability(32)));
 
-    static {
-        Map<String, String> itemsFromJson = loadItemsFromJson();
-        if(itemsFromJson == null)
-            System.out.println("[ModItems] Error creating items !!!");
+    public static final RegistryObject<Item> KOHLRABI = ITEMS.register("kohlrabi",
+            () -> new Item(new Item.Properties().food(ModFoodProperties.KOHLRABI)) {
+                @Override
+                public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlas) {
+                    pTooltipComponents.add(Component.translatable("tooltip.testmod.kohlrabi"));
+                    super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlas);
+                }
+            });
 
-        for (Map.Entry<String, String> entry : itemsFromJson.entrySet()) {
-            String name = entry.getKey();
-            if(name.equals("chisel")){
-                ITEM_MAP.put(name, ITEMS.register(name,
-                        () -> new ChiselItem(new Item.Properties().durability(32))));
-            } else if(name.equals("kohlrabi")) {
-             ITEM_MAP.put(name, ITEMS.register(name,
-                     () ->new Item(new Item.Properties().food(ModFoodProperties.KOHLRABI)) {
-                         @Override
-                         public void appendHoverText(ItemStack pStack, TooltipContext pContext, List<Component> pTooltipComponents, TooltipFlag pTooltipFlag) {
-                             pTooltipComponents.add(Component.translatable("tooltip.testmod.kohrabi"));
-                             super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag);
-                         }
-                     }));
-            } else if (name.equals("bruno_ashes")){
-                ITEM_MAP.put(name, ITEMS.register(name,
-                        () -> new FuelItem(new Item.Properties(), 1200)));
-            } else {
-                ITEM_MAP.put(name, ITEMS.register(name,
-                        () -> new Item(new Item.Properties())));
-            }
-        }
-    }
+    public static final RegistryObject<Item> BRUNO_ASHES = ITEMS.register("bruno_ashes",
+            () -> new FuelItem(new Item.Properties(), 1200));
+
+    public static final RegistryObject<Item> BRUNITE_SWORD = ITEMS.register("brunite_sword",
+            () -> new SwordItem(ModToolTiers.BRUNITE, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModToolTiers.BRUNITE, 3, -2.4f))));
+
+    public static final RegistryObject<Item> BRUNITE_PICKAXE = ITEMS.register("brunite_pickaxe",
+            () -> new PickaxeItem(ModToolTiers.BRUNITE, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolTiers.BRUNITE, 1, -2.8f))));
+
+    public static final RegistryObject<Item> BRUNITE_SHOVEL = ITEMS.register("brunite_shovel",
+            () -> new ShovelItem(ModToolTiers.BRUNITE, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolTiers.BRUNITE, 1.5f, -3.0f))));
+
+    public static final RegistryObject<Item> BRUNITE_AXE = ITEMS.register("brunite_axe",
+            () -> new AxeItem(ModToolTiers.BRUNITE, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolTiers.BRUNITE, 6, -3.2f))));
+
+    public static final RegistryObject<Item> BRUNITE_HOE = ITEMS.register("brunite_hoe",
+            () -> new HoeItem(ModToolTiers.BRUNITE, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolTiers.BRUNITE, 0, -3.0f))));
+
+    public static final RegistryObject<Item> BRUNITE_HAMMER = ITEMS.register("brunite_hammer",
+            () -> new HammerItem(ModToolTiers.BRUNITE, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolTiers.BRUNITE, 7, -3.5f))));
+
+    public static final RegistryObject<Item> BRUNITE_HELMET = ITEMS.register("brunite_helmet",
+            () -> new ModArmorItem(ModArmorMaterials.BRUNITE_ARMOR_MATERIAL, ArmorItem.Type.HELMET,
+                    new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(18))));
+    public static final RegistryObject<Item> BRUNITE_CHESTPLATE = ITEMS.register("brunite_chestplate",
+            () -> new ArmorItem(ModArmorMaterials.BRUNITE_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE,
+                    new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(18))));
+    public static final RegistryObject<Item> BRUNITE_LEGGINGS = ITEMS.register("brunite_leggings",
+            () -> new ArmorItem(ModArmorMaterials.BRUNITE_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS,
+                    new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(18))));
+    public static final RegistryObject<Item> BRUNITE_BOOTS = ITEMS.register("brunite_boots",
+            () -> new ArmorItem(ModArmorMaterials.BRUNITE_ARMOR_MATERIAL, ArmorItem.Type.BOOTS,
+                    new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(18))));
+
+    public static final RegistryObject<Item> BRUNITE_HORSE_ARMOR = ITEMS.register("brunite_horse_armor",
+            () -> new AnimalArmorItem(ModArmorMaterials.BRUNITE_ARMOR_MATERIAL, AnimalArmorItem.BodyType.EQUESTRIAN,
+                    false, new Item.Properties().stacksTo(1)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
 
-    private static Map<String, String> loadItemsFromJson() {
-        Gson gson = new Gson();
-        File itemCreatorFile = new File("../src/main/resources/assets/itemCreator.json");
-        if (!itemCreatorFile.exists()) {
-            System.out.println("[ModItems] itemCreator.json not found!");
-            return null;
-        }
-        try {
-            Map<String, String> newEntries = gson.fromJson(new FileReader(itemCreatorFile), new TypeToken<Map<String, String>>() {}.getType());
-            return newEntries;
-        } catch (IOException e) {
-////            LOGGER.error("Failed to read items JSON file: {}", JSON_FILE_PATH, e);
-        }
 
-
-
-        return null;
-    }
 }
+
+

@@ -18,13 +18,49 @@ public class ModCreativeModeTabs {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, TestMod.MOD_ID);
 
     public static final RegistryObject<CreativeModeTab> BRUNITE_ITEMS_TAB = CREATIVE_MODE_TABS.register("brunite_items_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.ITEM_MAP.get("brunite").get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.BRUNITE.get()))
                     .title(Component.translatable("creativetab.testmod.brunite_items"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        for (Map.Entry<String, RegistryObject<Item>> entry : ModItems.ITEM_MAP.entrySet()) {
-                            output.accept(entry.getValue().get());
-                        }
+                        output.accept(ModItems.BRUNITE.get());
+                        output.accept(ModItems.RAW_BRUNITE.get());
+                        output.accept(ModItems.BRUNO_ASHES.get());
+                        output.accept(ModItems.CHISEL.get());
+                        output.accept(ModItems.KOHLRABI.get());
+
+                        output.accept(ModBlocks.BRUNITE_ORE.get());
+                        output.accept(ModBlocks.BRUNITE_DEEPSLATE_ORE.get());
+                        output.accept(ModBlocks.BRUNITE_BLOCK.get());
+                        output.accept(ModBlocks.RAW_BRUNITE_BLOCK.get());
                         output.accept(ModBlocks.MAGIC_BLOCK.get());
+
+                        output.accept(ModBlocks.BRUNITE_STAIRS.get());
+                        output.accept(ModBlocks.BRUNITE_SLAB.get());
+
+                        output.accept(ModBlocks.BRUNITE_PRESSURE_PLATE.get());
+                        output.accept(ModBlocks.BRUNITE_BUTTON.get());
+
+                        output.accept(ModBlocks.BRUNITE_FENCE.get());
+                        output.accept(ModBlocks.BRUNITE_FENCE_GATE.get());
+                        output.accept(ModBlocks.BRUNITE_WALL.get());
+
+                        output.accept(ModBlocks.BRUNITE_DOOR.get());
+                        output.accept(ModBlocks.BRUNITE_TRAP_DOOR.get());
+                        output.accept(ModBlocks.BRUNITE_LAMP.get());
+
+                        output.accept(ModItems.BRUNITE_SWORD.get());
+                        output.accept(ModItems.BRUNITE_PICKAXE.get());
+                        output.accept(ModItems.BRUNITE_SHOVEL.get());
+                        output.accept(ModItems.BRUNITE_AXE.get());
+                        output.accept(ModItems.BRUNITE_HOE.get());
+                        output.accept(ModItems.BRUNITE_HAMMER.get());
+
+                        output.accept(ModItems.BRUNITE_HELMET.get());
+                        output.accept(ModItems.BRUNITE_CHESTPLATE.get());
+                        output.accept(ModItems.BRUNITE_LEGGINGS.get());
+                        output.accept(ModItems.BRUNITE_BOOTS.get());
+
+                        output.accept(ModItems.BRUNITE_HORSE_ARMOR.get());
+
 
                     }).build());
 

@@ -1,16 +1,49 @@
 {
-"item.testmod.brunite":"Brunite",
-"item.testmod.raw_brunite":"Raw Brunite",
-"block.testmod.brunite_block":"Block of Brunite",
-"block.testmod.brunite_ore":"Brunite Ore",
-"block.testmod.brunite_deepslate_ore":"Brunite Deepslate Ore",
-"block.testmod.magic_block":"Brunite Magic Block",
-"creativetab.testmod.brunite_items":"Brunite Items",
-"item.testmod.chisel":"Brown Chisel",
-"tooltip.testmod.magic_block.tooltip":"This block is quite §9MAGICAL§r §8WORD§7WORD2§r",
-"tooltip.testmod.chisel.shift_down":"This item changes certain blocks",
-"tooltip.testmod.chisel":"Press §eShift§r for more information!",
-"tooltip.testmod.kohrabi":"KOLORABI BABY",
-"item.testmod.kohlrabi":"Kohlrabi",
-"item.testmod.bruno_ashes":"Bruno\u0027s Ashes"
+  "creativetab.testmod.brunite_items": "Brunite Items",
+
+  "item.testmod.brunite": "Brunite",
+  "item.testmod.raw_brunite": "Raw Brunite",
+  "item.testmod.chisel": "Brown Chisel",
+  "item.testmod.kohlrabi": "Kohlrabi",
+  "item.testmod.bruno_ashes": "Bruno\u0027s Ashes",
+
+  "item.testmod.brunite_helmet": "Brunite Helmet",
+  "item.testmod.brunite_chestplate": "Brunite Chestplate",
+  "item.testmod.brunite_leggings": "Brunite Leggings",
+  "item.testmod.brunite_boots": "Brunite Boots",
+
+  "item.testmod.brunite_sword": "Brunite Sword",
+  "item.testmod.brunite_pickaxe": "Brunite Pickaxe",
+  "item.testmod.brunite_axe": "Brunite Axe",
+  "item.testmod.brunite_shovel": "Brunite Shovel",
+  "item.testmod.brunite_hoe": "Brunite Hoe",
+  "item.testmod.brunite_hammer": "Brunite Hammer",
+
+  "item.testmod.brunite_horse_armor": "Brunite Horse Armor",
+
+  "block.testmod.brunite_block": "Block of Brunite",
+  "block.testmod.raw_brunite_block": "Raw Brunite Block",
+  "block.testmod.brunite_ore": "Brunite Ore",
+  "block.testmod.brunite_deepslate_ore": "Brunite Deepslate Ore",
+  "block.testmod.magic_block": "Brunite Magic Block",
+
+  "block.testmod.brunite_stairs": "Brunite Stairs",
+  "block.testmod.brunite_slab": "Brunite Slab",
+
+  "block.testmod.brunite_button": "Brunite Button",
+  "block.testmod.brunite_pressure_plate": "Brunite Pressure Plate",
+
+  "block.testmod.brunite_fence": "Brunite Fence",
+  "block.testmod.brunite_fence_gate": "Brunite Gate",
+  "block.testmod.brunite_wall": "Brunite Wall",
+
+  "block.testmod.brunite_door": "Brunite Door",
+  "block.testmod.brunite_trap_door": "Brunite Trap Door",
+
+  "block.testmod.brunite_lamp": "Brunite Lamp",
+
+  "tooltip.testmod.kohlrabi": "KOLORABI BABY",
+  "tooltip.testmod.chisel": "Press §eShift§r for more information!",
+  "tooltip.testmod.chisel.shift_down": "This item changes certain blocks",
+  "tooltip.testmod.magic_block.tooltip": "This block is quite §9MAGICAL§r §8WORD§7WORD2§r"
 }

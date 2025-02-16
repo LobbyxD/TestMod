@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "brunite",
+  "ingredients": [
+    {
+      "item": "testmod:brunite"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "testmod:brunite_button"
+  }
+}
