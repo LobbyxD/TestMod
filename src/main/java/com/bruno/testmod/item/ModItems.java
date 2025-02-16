@@ -7,6 +7,7 @@ import com.bruno.testmod.item.custom.HammerItem;
 
 import com.bruno.testmod.item.custom.ModArmorItem;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -80,6 +81,9 @@ public class ModItems {
     public static final RegistryObject<Item> BRUNITE_HORSE_ARMOR = ITEMS.register("brunite_horse_armor",
             () -> new AnimalArmorItem(ModArmorMaterials.BRUNITE_ARMOR_MATERIAL, AnimalArmorItem.BodyType.EQUESTRIAN,
                     false, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> KAUPEN_SMITHING_TEMPLATE = ITEMS.register("kaupen_armor_trim_smithing_template",
+            () -> SmithingTemplateItem.createArmorTrimTemplate(ResourceLocation.fromNamespaceAndPath(TestMod.MOD_ID, "kaupen")));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

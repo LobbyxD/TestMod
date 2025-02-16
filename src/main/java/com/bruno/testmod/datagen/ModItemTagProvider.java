@@ -34,5 +34,11 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.BRUNITE_CHESTPLATE.get())
                 .add(ModItems.BRUNITE_LEGGINGS.get())
                 .add(ModItems.BRUNITE_BOOTS.get());
+
+        tag(ItemTags.TRIM_MATERIALS)
+                .add(ModItems.BRUNITE.get());
+
+        tag(ItemTags.TRIM_TEMPLATES)
+                .add(ModItems.KAUPEN_SMITHING_TEMPLATE.get());
     }
 }

@@ -1,0 +1,9 @@
+{
+  "asset_name": "brunite",
+  "description": {
+    "color": "#031CFC",
+    "translate": "trim_material.testmod.brunite"
+  },
+  "ingredient": "testmod:brunite",
+  "item_model_index": 0.5
+}

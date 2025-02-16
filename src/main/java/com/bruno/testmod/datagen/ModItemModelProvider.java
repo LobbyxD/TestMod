@@ -45,7 +45,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.BRUNITE.get());
         basicItem(ModItems.RAW_BRUNITE.get());
 
-        basicItem(ModItems.CHISEL.get());
+//        basicItem(ModItems.CHISEL.get());
         basicItem(ModItems.KOHLRABI.get());
         basicItem(ModItems.BRUNO_ASHES.get());
 
@@ -68,6 +68,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         trimmedArmorItem(ModItems.BRUNITE_BOOTS);
 
         basicItem(ModItems.BRUNITE_HORSE_ARMOR.get());
+        basicItem(ModItems.KAUPEN_SMITHING_TEMPLATE.get());
     }
 
     private void trimmedArmorItem(RegistryObject<Item> itemRegistryObject) {

@@ -1,4 +1,4 @@
-// 1.21.1	2025-02-15T21:39:24.9685329	Recipes
+// 1.21.1	2025-02-16T03:06:47.7095549	Recipes
 f816d7dd1cb8072804aada6aebecabc41de824dc data/testmod/advancement/recipes/building_blocks/brunite_slab.json
 c1a89f9291720f5e4a25d15912e167752739636e data/testmod/advancement/recipes/building_blocks/brunite_stairs.json
 147d899fc63e912e783a51a9299e9c0babc6255f data/testmod/advancement/recipes/building_blocks/brunite_wall.json
@@ -12,6 +12,7 @@ d27fbdcc5fa1129a40e6395f7dc2fc1d7ccd01ae data/testmod/advancement/recipes/misc/b
 dea1c91dcf5cc6d7fa3eed9c8dba33bd830a005c data/testmod/advancement/recipes/misc/brunite_from_smelting_brunite_deepslate_ore.json
 25f4899fe8e334ecab93ae94a47408c2daa995e1 data/testmod/advancement/recipes/misc/brunite_from_smelting_brunite_ore.json
 255db17afa6db14f880d1f3086b86c0d0a8cfde7 data/testmod/advancement/recipes/misc/brunite_from_smelting_raw_brunite.json
+606538b5389a5a6384326c9eeae378b4021a09e5 data/testmod/advancement/recipes/misc/kaupen.json
 daa356cf0588d4f436f5501715eed33411c91c44 data/testmod/advancement/recipes/redstone/brunite_button.json
 5de42b7ce7201ea051ee95dbe55fb540b9da583e data/testmod/advancement/recipes/redstone/brunite_door.json
 818d9f153279096f240d43a3e01d55f7000e8612 data/testmod/advancement/recipes/redstone/brunite_fence_gate.json
@@ -35,3 +36,4 @@ bb4781c821ff0a7bae49d3733803eb8bbdb33265 data/testmod/recipe/brunite_slab.json
 86e9bcd4ed3fed87a780222c7e6c7248a99aa171 data/testmod/recipe/brunite_stairs.json
 200628fd1f96764beab01e4f84479a762b07f8a9 data/testmod/recipe/brunite_trap_door.json
 70dc7727766444a078f9fc2f363bd5d997eca7b6 data/testmod/recipe/brunite_wall.json
+87e4c9d6b4db81b4653c128583aa7331e62b7107 data/testmod/recipe/kaupen.json

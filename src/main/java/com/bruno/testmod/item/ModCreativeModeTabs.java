@@ -61,6 +61,8 @@ public class ModCreativeModeTabs {
 
                         output.accept(ModItems.BRUNITE_HORSE_ARMOR.get());
 
+                        output.accept(ModItems.KAUPEN_SMITHING_TEMPLATE.get());
+
 
                     }).build());
 

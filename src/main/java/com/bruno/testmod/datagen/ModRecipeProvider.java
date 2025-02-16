@@ -6,6 +6,7 @@ import com.bruno.testmod.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
@@ -60,6 +61,8 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ModBlocks.BRUNITE_BLOCK.get()), has(ModBlocks.BRUNITE_BLOCK.get())).save(pRecipeOutput);
         trapdoorBuilder(ModBlocks.BRUNITE_TRAP_DOOR.get(), Ingredient.of(ModItems.BRUNITE.get())).group("brunite")
                 .unlockedBy(getHasName(ModBlocks.BRUNITE_BLOCK.get()), has(ModBlocks.BRUNITE_BLOCK.get())).save(pRecipeOutput);
+
+        trimSmithing(pRecipeOutput, ModItems.KAUPEN_SMITHING_TEMPLATE.get(), ResourceLocation.fromNamespaceAndPath(TestMod.MOD_ID, "kaupen"));
     }
 
     protected static void oreSmelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,
