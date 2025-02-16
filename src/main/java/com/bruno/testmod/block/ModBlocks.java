@@ -5,6 +5,7 @@ import com.bruno.testmod.block.custom.BruniteLampBlock;
 import com.bruno.testmod.block.custom.MagicBlock;
 import com.bruno.testmod.item.ModItems;
 
+import com.bruno.testmod.sound.ModSounds;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -58,6 +59,7 @@ public class ModBlocks {
             () -> new MagicBlock(BlockBehaviour.Properties.of().
                     strength(2f).
                     requiresCorrectToolForDrops()
+                    .sound(ModSounds.MAGIC_BLOCK_SOUNDS)
             ));
 
     public static final RegistryObject<StairBlock> BRUNITE_STAIRS = registerBlock("brunite_stairs",

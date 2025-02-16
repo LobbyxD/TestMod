@@ -1,0 +1,6 @@
+{
+    "parent": "testmod:item/brunite_bow",
+    "textures": {
+        "layer0": "testmod:item/brunite_bow_pulling_0"
+    }
+}

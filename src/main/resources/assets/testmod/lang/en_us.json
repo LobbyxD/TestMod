@@ -18,11 +18,20 @@
   "item.testmod.brunite_shovel": "Brunite Shovel",
   "item.testmod.brunite_hoe": "Brunite Hoe",
   "item.testmod.brunite_hammer": "Brunite Hammer",
+  "item.testmod.brunite_bow": "Brunite Bow",
 
   "item.testmod.brunite_horse_armor": "Brunite Horse Armor",
 
   "item.testmod.kaupen_armor_trim_smithing_template": "Kaupen Trim Template",
-  
+
+  "item.testmod.bar_brawl_music_disc": "Bar Brawl Music Disc",
+  "item.testmod.bar_brawl_music_disc.desc": "Bryan Tech - Bar Brawl (CC0)",
+
+  "item.minecraft.potion.effect.slimey_potion": "Slimey Potion",
+  "item.minecraft.splash_potion.effect.slimey_potion": "Slimey Splash Potion",
+  "item.minecraft.lingering_potion.effect.slimey_potion": "Slimey Lingering Potion",
+
+
   "block.testmod.brunite_block": "Block of Brunite",
   "block.testmod.raw_brunite_block": "Raw Brunite Block",
   "block.testmod.brunite_ore": "Brunite Ore",
@@ -38,6 +47,9 @@
   "block.testmod.brunite_door": "Brunite Door",
   "block.testmod.brunite_trap_door": "Brunite Trap Door",
   "block.testmod.brunite_lamp": "Brunite Lamp",
+
+  "effect.testmod.slimey": "Slimey",
+
   "tooltip.testmod.kohlrabi": "KOLORABI BABY",
   "tooltip.testmod.chisel": "Press §eShift§r for more information!",
   "tooltip.testmod.chisel.shift_down": "This item changes certain blocks",
