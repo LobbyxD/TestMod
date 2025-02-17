@@ -1,4 +1,4 @@
-// 1.21.1	2025-02-15T23:04:27.9215335	Loot Tables
+// 1.21.1	2025-02-17T23:05:47.2149639	Loot Tables
 9cf3244d31304972113ab078d55b3d1929cd9058 data/testmod/loot_table/blocks/brunite_block.json
 5f76d19efeab6b863ea4f67e3d5a763457592d1d data/testmod/loot_table/blocks/brunite_button.json
 23f36a760373e7b9ecb4445268401de1c9f48626 data/testmod/loot_table/blocks/brunite_deepslate_ore.json
@@ -12,5 +12,7 @@ e18316c518658a631a389a8a4e4925a577bea2c9 data/testmod/loot_table/blocks/brunite_
 360fa556b4a0d9855788a1fa960ad6ae38205ce2 data/testmod/loot_table/blocks/brunite_stairs.json
 65aced9fad5d480eacf906fbd0c2609b273ce420 data/testmod/loot_table/blocks/brunite_trap_door.json
 bf89ba9ff0bb8cb0bb30e7865cb79de00bbf2385 data/testmod/loot_table/blocks/brunite_wall.json
+41036622a40a87781cca385c75ac115778302ebe data/testmod/loot_table/blocks/honey_berry_bush.json
+d55e7a198265d9153ce44aaded07779b0748c1ea data/testmod/loot_table/blocks/kohlrabi_crop.json
 61e3e8f2c8dfe3faa10b926e2715427fdfac8ea3 data/testmod/loot_table/blocks/magic_block.json
 1604d7709bf6677351d976376a56931f8012f32b data/testmod/loot_table/blocks/raw_brunite_block.json

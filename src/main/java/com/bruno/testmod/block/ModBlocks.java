@@ -2,6 +2,8 @@ package com.bruno.testmod.block;
 
 import com.bruno.testmod.TestMod;
 import com.bruno.testmod.block.custom.BruniteLampBlock;
+import com.bruno.testmod.block.custom.HoneyBerryBushBlock;
+import com.bruno.testmod.block.custom.KohlrabiCropBlock;
 import com.bruno.testmod.block.custom.MagicBlock;
 import com.bruno.testmod.item.ModItems;
 
@@ -94,12 +96,18 @@ public class ModBlocks {
             () -> new BruniteLampBlock(BlockBehaviour.Properties.of().strength(3f)
                     .lightLevel(state -> state.getValue(BruniteLampBlock.CLICKED) ? 15 : 0)));
 
-//===============================================================================================================================================//
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
         return toReturn;
     }
+
+    public static final RegistryObject<Block> KOHLRABI_CROP = BLOCKS.register("kohlrabi_crop",
+            () -> new KohlrabiCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
+
+    public static final RegistryObject<Block> HONEY_BERRY_BUSH = BLOCKS.register("honey_berry_bush",
+            () -> new HoneyBerryBushBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH)));
+
 
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
