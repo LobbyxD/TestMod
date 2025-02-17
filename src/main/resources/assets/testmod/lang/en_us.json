@@ -50,6 +50,8 @@
 
   "effect.testmod.slimey": "Slimey",
 
+  "enchantment.testmod.lightning_striker": "Lightning Striker",
+
   "tooltip.testmod.kohlrabi": "KOLORABI BABY",
   "tooltip.testmod.chisel": "Press §eShift§r for more information!",
   "tooltip.testmod.chisel.shift_down": "This item changes certain blocks",

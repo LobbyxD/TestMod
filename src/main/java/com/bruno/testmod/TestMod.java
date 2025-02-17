@@ -3,6 +3,7 @@ package com.bruno.testmod;
 import com.bruno.testmod.block.ModBlocks;
 import com.bruno.testmod.component.ModDataComponentTypes;
 import com.bruno.testmod.effect.ModEffects;
+import com.bruno.testmod.enchantment.ModEnchantmentEffects;
 import com.bruno.testmod.item.ModCreativeModeTabs;
 import com.bruno.testmod.item.ModItems;
 import com.bruno.testmod.potion.ModPotions;
@@ -53,6 +54,8 @@ public class TestMod {
         ModPotions.register(modEventBus);
 
         ModDataComponentTypes.register(modEventBus);
+
+        ModEnchantmentEffects.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
 
