@@ -34,11 +34,4 @@ public class ModClientEvents {
             event.setNewFovModifier(fovModifer);
         }
     }
-
-    @SubscribeEvent
-    public static void onLivingVisibilityEvent(LivingEvent.LivingVisibilityEvent event) {
-        if (event.getEntity() instanceof Zombie zombie && event.getLookingEntity() instanceof Player player) {
-            player.sendSystemMessage(Component.literal("Zombie is looking at you"));
-        }
-    }
 }
