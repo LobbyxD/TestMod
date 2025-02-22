@@ -50,7 +50,7 @@ public class ModConfiguredFeatures {
         register(context, END_BRUNITE_ORE_KEY, Feature.ORE, new OreConfiguration(endReplaceables,
                 ModBlocks.BRUNITE_END_ORE.get().defaultBlockState(), 9));
 
-        // what log and leaves will be, trunk and folage placer changes types (play with numbers)
+        // what log and leaves will be, trunk and foliage placer changes types (play with numbers)
         // check tree features to determine height and more
         register(context, BRUNE_KEY, Feature.TREE, new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(ModBlocks.BRUNE_LOG.get()),

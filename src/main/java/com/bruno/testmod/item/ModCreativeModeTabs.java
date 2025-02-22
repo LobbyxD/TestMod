@@ -29,6 +29,9 @@ public class ModCreativeModeTabs {
 
                         output.accept(ModBlocks.BRUNITE_ORE.get());
                         output.accept(ModBlocks.BRUNITE_DEEPSLATE_ORE.get());
+                        output.accept(ModBlocks.BRUNITE_NETHER_ORE.get());
+                        output.accept(ModBlocks.BRUNITE_END_ORE.get());
+
                         output.accept(ModBlocks.BRUNITE_BLOCK.get());
                         output.accept(ModBlocks.RAW_BRUNITE_BLOCK.get());
                         output.accept(ModBlocks.MAGIC_BLOCK.get());
@@ -68,6 +71,15 @@ public class ModCreativeModeTabs {
 
                         output.accept(ModItems.KOHLRABI_SEEDS.get());
                         output.accept(ModItems.HONEY_BERRY.get());
+
+                        output.accept(ModBlocks.BRUNE_LOG.get());
+                        output.accept(ModBlocks.BRUNE_WOOD.get());
+                        output.accept(ModBlocks.STRIPPED_BRUNE_LOG.get());
+                        output.accept(ModBlocks.STRIPPED_BRUNE_WOOD.get());
+                        output.accept(ModBlocks.BRUNE_SAPLING.get());
+                        output.accept(ModBlocks.BRUNE_LEAVES.get());
+                        output.accept(ModBlocks.BRUNE_PLANKS.get());
+
 
                     }).build());
 
