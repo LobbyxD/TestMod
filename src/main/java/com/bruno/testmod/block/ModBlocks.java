@@ -167,8 +167,10 @@ public class ModBlocks {
                     return 30;
                 }
             });
+    // supplier to endstone sets that the sapling can be placed on endstone
+    // BUT, minecraft dirt methods turns the block into dirt, so, in ModConfiguredFeatures you add dirt provider with ENDSTONE to the twolayers
     public static final RegistryObject<Block> BRUNE_SAPLING = registerBlock("brune_sapling",
-            () -> new SaplingBlock(ModTreeGrowers.BRUNE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
+            () -> new ModSaplingBlock(ModTreeGrowers.BRUNE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING), () -> Blocks.END_STONE));
 
 
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {

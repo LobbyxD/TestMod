@@ -33,6 +33,8 @@ public class ModConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> BRUNE_KEY = registerKey("brune");
 
+    public static final ResourceKey<ConfiguredFeature<?, ?>> HONEY_BERRY_BUSH_KEY = registerKey("honey_berry_bush");
+
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
@@ -59,8 +61,18 @@ public class ModConfiguredFeatures {
                 BlockStateProvider.simple(ModBlocks.BRUNE_LEAVES.get()),
                 new BlobFoliagePlacer(ConstantInt.of(3), ConstantInt.of(3), 3),
 
-                new TwoLayersFeatureSize(1, 0, 2)).build());
+                // dirt provider means if you place the tree, the bottom block will become endstone
+                new TwoLayersFeatureSize(1, 0, 2)).dirt(BlockStateProvider.simple(Blocks.END_STONE)).build());
 
+
+        // CTRL + Left click on "RANDOM_PATCH" then again on the next opened window
+        // Currently not working - find out how to fix it
+        register(context, HONEY_BERRY_BUSH_KEY, Feature.RANDOM_PATCH,
+                FeatureUtils.simplePatchConfiguration(
+                        Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(
+                                BlockStateProvider.simple(ModBlocks.HONEY_BERRY_BUSH.get()
+                                        .defaultBlockState().setValue(SweetBerryBushBlock.AGE, 3))
+                        ), List.of(Blocks.GRASS_BLOCK)));
 
     }
 

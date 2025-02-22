@@ -18,6 +18,10 @@ public class ModBiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_NEHTER_BRUNITE_ORE = registerKey("add_nether_brunite_ore");
     public static final ResourceKey<BiomeModifier> ADD_END_BRUNITE_ORE = registerKey("add_end_brunite_ore");
 
+    public static final ResourceKey<BiomeModifier> ADD_BRUNE_TREE = registerKey("add_tree_brune");
+
+    public static final ResourceKey<BiomeModifier> ADD_HONEY_BERRY_BUSH = registerKey("add_honey_berry_bush");
+
     public static void bootstrap(BootstrapContext<BiomeModifier> context) {
         var placedFeature = context.lookup(Registries.PLACED_FEATURE);
         var biomes = context.lookup(Registries.BIOME);
@@ -45,7 +49,19 @@ public class ModBiomeModifiers {
         ));
 
 
+        // tree
+        context.register(ADD_BRUNE_TREE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                HolderSet.direct(biomes.getOrThrow(Biomes.PLAINS), biomes.getOrThrow(Biomes.SAVANNA)),
+                HolderSet.direct(placedFeature.getOrThrow(ModPlacedFeatures.BRUNE_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION
+        ));
 
+        // bush
+        context.register(ADD_HONEY_BERRY_BUSH, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                HolderSet.direct(biomes.getOrThrow(Biomes.FOREST), biomes.getOrThrow(Biomes.BIRCH_FOREST)),
+                HolderSet.direct(placedFeature.getOrThrow(ModPlacedFeatures.HONEY_BERRY_BUSH_PLACED_KEY)),
+                GenerationStep.Decoration.VEGETAL_DECORATION
+        ));
     }
 
     private static ResourceKey<BiomeModifier> registerKey(String name) {
