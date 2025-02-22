@@ -42,6 +42,10 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                 block -> createOreDrop(ModBlocks.BRUNITE_ORE.get(), ModItems.RAW_BRUNITE.get()));
         this.add(ModBlocks.BRUNITE_DEEPSLATE_ORE.get(),
                 block -> createMultipleOreDrops(ModBlocks.BRUNITE_DEEPSLATE_ORE.get(), ModItems.RAW_BRUNITE.get(), 2, 5));
+        this.add(ModBlocks.BRUNITE_NETHER_ORE.get(),
+                block -> createMultipleOreDrops(ModBlocks.BRUNITE_NETHER_ORE.get(), ModItems.RAW_BRUNITE.get(), 4, 8));
+        this.add(ModBlocks.BRUNITE_END_ORE.get(),
+                block -> createMultipleOreDrops(ModBlocks.BRUNITE_END_ORE.get(), ModItems.RAW_BRUNITE.get(), 1, 6));
 
         dropSelf(ModBlocks.BRUNITE_STAIRS.get());
         this.add(ModBlocks.BRUNITE_SLAB.get(),
@@ -80,6 +84,17 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F)))
                                 .apply(ApplyBonusCount.addUniformBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
                 )));
+
+        // tree
+        this.dropSelf(ModBlocks.BRUNE_LOG.get());
+        this.dropSelf(ModBlocks.BRUNE_WOOD.get());
+        this.dropSelf(ModBlocks.STRIPPED_BRUNE_LOG.get());
+        this.dropSelf(ModBlocks.STRIPPED_BRUNE_WOOD.get());
+        this.dropSelf(ModBlocks.BRUNE_PLANKS.get());
+        this.dropSelf(ModBlocks.BRUNE_SAPLING.get());
+
+        this.add(ModBlocks.BRUNE_LEAVES.get(), block ->
+                createLeavesDrops(block, ModBlocks.BRUNE_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
     }
 

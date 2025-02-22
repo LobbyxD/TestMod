@@ -38,8 +38,12 @@
 
   "block.testmod.brunite_block": "Block of Brunite",
   "block.testmod.raw_brunite_block": "Raw Brunite Block",
+
   "block.testmod.brunite_ore": "Brunite Ore",
   "block.testmod.brunite_deepslate_ore": "Brunite Deepslate Ore",
+  "block.testmod.brunite_nether_ore": "Brunite Nether Ore",
+  "block.testmod.brunite_end_ore": "Brunite End Ore",
+
   "block.testmod.magic_block": "Brunite Magic Block",
   "block.testmod.brunite_stairs": "Brunite Stairs",
   "block.testmod.brunite_slab": "Brunite Slab",
@@ -51,6 +55,14 @@
   "block.testmod.brunite_door": "Brunite Door",
   "block.testmod.brunite_trap_door": "Brunite Trap Door",
   "block.testmod.brunite_lamp": "Brunite Lamp",
+
+  "block.testmod.brune_log": "Brune Log",
+  "block.testmod.brune_planks": "Brune Planks",
+  "block.testmod.brune_wood": "Brune Wood",
+  "block.testmod.stripped_brune_log": "Stripped Brune Log",
+  "block.testmod.stripped_brune_wood": "Stripped Brune Wood",
+  "block.testmod.brune_leaves": "Brune Leaves",
+  "block.testmod.brune_sapling": "Brune Sapling",
 
   "effect.testmod.slimey": "Slimey",
 

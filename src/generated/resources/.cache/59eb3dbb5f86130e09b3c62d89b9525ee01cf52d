@@ -1,11 +1,18 @@
-// 1.21.1	2025-02-17T23:05:47.2149639	Loot Tables
+// 1.21.1	2025-02-22T17:28:49.870393	Loot Tables
+7360a351313124adb7e202cee2a1b8fb6d42157d data/testmod/loot_table/blocks/brune_leaves.json
+28f53b18ee87a61ffe3288b56fd8c010ae7d68d9 data/testmod/loot_table/blocks/brune_log.json
+810d6cd3c77a6e8501aaa4a4dab186b52b84d907 data/testmod/loot_table/blocks/brune_planks.json
+d700b401d83d4483e3656d41ec7693a1bcebb860 data/testmod/loot_table/blocks/brune_sapling.json
+acadc128f01d6fe19a4bda81481ff8e3fdc1c1f8 data/testmod/loot_table/blocks/brune_wood.json
 9cf3244d31304972113ab078d55b3d1929cd9058 data/testmod/loot_table/blocks/brunite_block.json
 5f76d19efeab6b863ea4f67e3d5a763457592d1d data/testmod/loot_table/blocks/brunite_button.json
 23f36a760373e7b9ecb4445268401de1c9f48626 data/testmod/loot_table/blocks/brunite_deepslate_ore.json
 b443d8ccdd6c66cc3c9a72ee058b7ae2020733f1 data/testmod/loot_table/blocks/brunite_door.json
+eaf97bace77c73edfcd53a84cb978f0c0a3adf4d data/testmod/loot_table/blocks/brunite_end_ore.json
 97f31f0e2059289d44abf9a1cd565e0c94583c01 data/testmod/loot_table/blocks/brunite_fence.json
 b236a3a9b9edf1a9bac8ef87b467e589abf4b436 data/testmod/loot_table/blocks/brunite_fence_gate.json
 61bb5d7cbaea4d5e06dd2cf658fa700c2a73acd8 data/testmod/loot_table/blocks/brunite_lamp.json
+44a6ea211dc989c94d9ece60eca77b5dee660658 data/testmod/loot_table/blocks/brunite_nether_ore.json
 94cc7f3cca14de58ff829dd11fe9cbc7a026edd3 data/testmod/loot_table/blocks/brunite_ore.json
 e18316c518658a631a389a8a4e4925a577bea2c9 data/testmod/loot_table/blocks/brunite_pressure_plate.json
 482f901e0122677f44789fa38296070430ca14dc data/testmod/loot_table/blocks/brunite_slab.json
@@ -16,3 +23,5 @@ bf89ba9ff0bb8cb0bb30e7865cb79de00bbf2385 data/testmod/loot_table/blocks/brunite_
 d55e7a198265d9153ce44aaded07779b0748c1ea data/testmod/loot_table/blocks/kohlrabi_crop.json
 61e3e8f2c8dfe3faa10b926e2715427fdfac8ea3 data/testmod/loot_table/blocks/magic_block.json
 1604d7709bf6677351d976376a56931f8012f32b data/testmod/loot_table/blocks/raw_brunite_block.json
+f91120f46ff493b4abf6530968ed29ba16768a5b data/testmod/loot_table/blocks/stripped_brune_log.json
+aa1f0bb771fef2660e7e0d1777338616a4b122dd data/testmod/loot_table/blocks/stripped_brune_wood.json

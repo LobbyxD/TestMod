@@ -1,6 +1,7 @@
 package com.bruno.testmod.datagen;
 
 import com.bruno.testmod.TestMod;
+import com.bruno.testmod.block.ModBlocks;
 import com.bruno.testmod.item.ModItems;
 import com.bruno.testmod.util.ModTags;
 import net.minecraft.core.HolderLookup;
@@ -40,5 +41,15 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
         tag(ItemTags.TRIM_TEMPLATES)
                 .add(ModItems.KAUPEN_SMITHING_TEMPLATE.get());
+
+        // tree
+        tag(ItemTags.LOGS_THAT_BURN)
+                .add(ModBlocks.BRUNE_LOG.get().asItem())
+                .add(ModBlocks.BRUNE_WOOD.get().asItem())
+                .add(ModBlocks.STRIPPED_BRUNE_LOG.get().asItem())
+                .add(ModBlocks.STRIPPED_BRUNE_WOOD.get().asItem());
+
+        tag(ItemTags.PLANKS)
+                .add(ModBlocks.BRUNE_PLANKS.get().asItem());
     }
 }

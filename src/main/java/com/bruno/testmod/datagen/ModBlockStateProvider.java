@@ -34,6 +34,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         blockWithItem(ModBlocks.BRUNITE_ORE);
         blockWithItem(ModBlocks.BRUNITE_DEEPSLATE_ORE);
+        blockWithItem(ModBlocks.BRUNITE_END_ORE);
+        blockWithItem(ModBlocks.BRUNITE_NETHER_ORE);
 
         blockWithItem(ModBlocks.MAGIC_BLOCK);
 
@@ -60,6 +62,32 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         makeCrop(((CropBlock) ModBlocks.KOHLRABI_CROP.get()), "kohlrabi_crop_stage", "kohlrabi_crop_stage");
         makeBush(((SweetBerryBushBlock) ModBlocks.HONEY_BERRY_BUSH.get()), "honey_berry_bush_stage", "honey_berry_bush_stage");
+
+        // tree
+        logBlock(ModBlocks.BRUNE_LOG.get());
+        axisBlock(ModBlocks.BRUNE_WOOD.get(), blockTexture(ModBlocks.BRUNE_LOG.get()), blockTexture(ModBlocks.BRUNE_LOG.get()));
+        logBlock(ModBlocks.STRIPPED_BRUNE_LOG.get());
+        axisBlock(ModBlocks.STRIPPED_BRUNE_WOOD.get(), blockTexture(ModBlocks.STRIPPED_BRUNE_LOG.get()), blockTexture(ModBlocks.STRIPPED_BRUNE_LOG.get()));
+
+        blockItem(ModBlocks.BRUNE_LOG);
+        blockItem(ModBlocks.BRUNE_WOOD);
+        blockItem(ModBlocks.STRIPPED_BRUNE_LOG);
+        blockItem(ModBlocks.STRIPPED_BRUNE_WOOD);
+        blockWithItem(ModBlocks.BRUNE_PLANKS);
+
+        leavesBlock(ModBlocks.BRUNE_LEAVES);
+        saplingBlock(ModBlocks.BRUNE_SAPLING);
+    }
+
+    private void saplingBlock(RegistryObject<Block> blockRegistryObject) {
+        simpleBlock(blockRegistryObject.get(),
+                models().cross(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), blockTexture(blockRegistryObject.get())).renderType("cutout"));
+    }
+
+    private void leavesBlock(RegistryObject<Block> blockRegistryObject) {
+        simpleBlockWithItem(blockRegistryObject.get(),
+                models().singleTexture(ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath(), ResourceLocation.parse("minecraft:block/leaves"),
+                        "all", blockTexture(blockRegistryObject.get())).renderType("cutout"));
     }
 
     public void makeBush(SweetBerryBushBlock block, String modelName, String textureName) {

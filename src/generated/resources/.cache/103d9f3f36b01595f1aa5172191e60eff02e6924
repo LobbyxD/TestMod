@@ -1,4 +1,14 @@
-// 1.21.1	2025-02-17T21:55:20.8905555	Registries
+// 1.21.1	2025-02-22T17:28:49.8708941	Registries
 0858d0a25db51b4a29b4829107037a808c78a415 data/testmod/enchantment/lightning_striker.json
+0066cdf8c8f1814222b14a75c77c905e616cc36d data/testmod/forge/biome_modifier/add_brunite_ore.json
+696444ff1032c2390f41c65a6268346cfa09ce55 data/testmod/forge/biome_modifier/add_end_brunite_ore.json
+49dac90129bfbd7836600d91cc9984fc7e8561b1 data/testmod/forge/biome_modifier/add_nether_brunite_ore.json
 ae566a1e0e973ccd1cdfabd4ec32aa5eb49296ca data/testmod/trim_material/brunite.json
 a0e11863765e8f4976d8263fb8f9af61dac8e796 data/testmod/trim_pattern/kaupen.json
+1cf5a0e17730ffd3d2b0f7d728ffc10654a260b8 data/testmod/worldgen/configured_feature/brune.json
+b45c9065f0c6e17d6a30602fd2ee0c2765bc15aa data/testmod/worldgen/configured_feature/brunite_ore.json
+4da68ad9c9d6ee592635af7a1276ed8c2bc8c283 data/testmod/worldgen/configured_feature/end_brunite_ore.json
+fbf754cdf10ce307a5b568929114d013cd91ce0a data/testmod/worldgen/configured_feature/nehter_brunite_ore.json
+e0dc2db9ae4092658199ce97d7bfd65ad42c865d data/testmod/worldgen/placed_feature/brunite_ore_placed.json
+25fc18d818b82b7ed50d437794222378034cbab1 data/testmod/worldgen/placed_feature/end_brunite_ore_placed.json
+765bd2378a2e5ed8e80f5d060659b87aa5a15d7a data/testmod/worldgen/placed_feature/nehter_brunite_ore_placed.json

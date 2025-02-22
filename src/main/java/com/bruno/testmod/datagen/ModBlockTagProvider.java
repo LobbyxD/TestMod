@@ -45,5 +45,12 @@ public class ModBlockTagProvider extends BlockTagsProvider {
         tag(ModTags.Blocks.INCORRECT_FOR_BRUNITE_TOOL)
                 .addTag(BlockTags.INCORRECT_FOR_IRON_TOOL)
                 .remove(ModTags.Blocks.NEEDS_BRUNITE_TOOL);
+
+        // tree
+        this.tag(BlockTags.LOGS_THAT_BURN)
+                .add(ModBlocks.BRUNE_LOG.get())
+                .add(ModBlocks.BRUNE_WOOD.get())
+                .add(ModBlocks.STRIPPED_BRUNE_LOG.get())
+                .add(ModBlocks.STRIPPED_BRUNE_WOOD.get());
     }
 }

@@ -1,18 +1,20 @@
 package com.bruno.testmod.block;
 
 import com.bruno.testmod.TestMod;
-import com.bruno.testmod.block.custom.BruniteLampBlock;
-import com.bruno.testmod.block.custom.HoneyBerryBushBlock;
-import com.bruno.testmod.block.custom.KohlrabiCropBlock;
-import com.bruno.testmod.block.custom.MagicBlock;
+import com.bruno.testmod.block.custom.*;
 import com.bruno.testmod.item.ModItems;
 
 import com.bruno.testmod.sound.ModSounds;
+import com.bruno.testmod.worldgen.tree.ModTreeGrowers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -56,6 +58,19 @@ public class ModBlocks {
                     requiresCorrectToolForDrops().
                     sound(SoundType.DEEPSLATE)
             ));
+    public static final RegistryObject<Block> BRUNITE_END_ORE = registerBlock("brunite_end_ore",
+            () -> new DropExperienceBlock(UniformInt.of(5, 9), BlockBehaviour.Properties.of().
+                    strength(7f).
+                    requiresCorrectToolForDrops()
+            ));
+    public static final RegistryObject<Block> BRUNITE_NETHER_ORE = registerBlock("brunite_nether_ore",
+            () -> new DropExperienceBlock(UniformInt.of(1, 5), BlockBehaviour.Properties.of().
+                    strength(3f).
+                    requiresCorrectToolForDrops()
+            ));
+
+
+
 
     public static final RegistryObject<Block> MAGIC_BLOCK = registerBlock("magic_block",
             () -> new MagicBlock(BlockBehaviour.Properties.of().
@@ -107,6 +122,53 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> HONEY_BERRY_BUSH = BLOCKS.register("honey_berry_bush",
             () -> new HoneyBerryBushBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH)));
+
+
+    // custom tree
+    public static final RegistryObject<RotatedPillarBlock> BRUNE_LOG = registerBlock("brune_log",
+            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> BRUNE_WOOD = registerBlock("brune_wood",
+            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_WOOD)));
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_BRUNE_LOG = registerBlock("stripped_brune_log",
+            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_LOG)));
+    public static final RegistryObject<RotatedPillarBlock> STRIPPED_BRUNE_WOOD = registerBlock("stripped_brune_wood",
+            () -> new ModFlammableRotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_OAK_WOOD)));
+    public static final RegistryObject<Block> BRUNE_PLANKS = registerBlock("brune_planks",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 20;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 5;
+                }
+            });
+    public static final RegistryObject<Block> BRUNE_LEAVES = registerBlock("brune_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+    public static final RegistryObject<Block> BRUNE_SAPLING = registerBlock("brune_sapling",
+            () -> new SaplingBlock(ModTreeGrowers.BRUNE, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SAPLING)));
 
 
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
