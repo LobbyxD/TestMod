@@ -27,12 +27,12 @@ public class BrunoModel<T extends BrunoEntity> extends HierarchicalModel<T> {
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 16.0F, 0.0F));
+        PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offsetAndRotation(-0.5F, 16.0F, -1.5F, 0.0F, -1.5708F, 0.0F));
 
         PartDefinition base = root.addOrReplaceChild("base", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition torso = base.addOrReplaceChild("torso", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, 0.0F, -2.5F, 5.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 21).addBox(-4.25F, 2.0F, -2.0F, 1.25F, 0.75F, 3.0F, new CubeDeformation(0.0F))
+                .texOffs(12, 20).addBox(-4.25F, 2.0F, -2.0F, 1.25F, 0.75F, 3.0F, new CubeDeformation(0.0F))
                 .texOffs(14, 8).addBox(-2.5F, 4.0F, -2.0F, 5.0F, 1.0F, 3.0F, new CubeDeformation(0.0F))
                 .texOffs(18, 0).addBox(2.5F, 4.0F, -2.0F, 2.25F, 0.5F, 3.0F, new CubeDeformation(0.0F))
                 .texOffs(14, 12).addBox(2.0F, 0.5F, -2.5F, 2.0F, 3.5F, 4.0F, new CubeDeformation(0.0F))
@@ -44,13 +44,13 @@ public class BrunoModel<T extends BrunoEntity> extends HierarchicalModel<T> {
 
         PartDefinition left_leg_front = front_legs.addOrReplaceChild("left_leg_front", CubeListBuilder.create(), PartPose.offset(-1.7F, 5.0F, -2.0F));
 
-        PartDefinition left_left_front_base = left_leg_front.addOrReplaceChild("left_left_front_base", CubeListBuilder.create().texOffs(0, 25).addBox(-1.05F, -1.25F, -0.75F, 2.0F, 1.25F, 1.75F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition left_left_front_base = left_leg_front.addOrReplaceChild("left_left_front_base", CubeListBuilder.create().texOffs(18, 24).addBox(-1.05F, -1.25F, -0.75F, 2.0F, 1.25F, 1.75F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_left_front_leg = left_leg_front.addOrReplaceChild("left_left_front_leg", CubeListBuilder.create().texOffs(8, 27).addBox(-0.55F, -0.5F, -0.5F, 1.25F, 3.5F, 1.25F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition left_left_front_leg = left_leg_front.addOrReplaceChild("left_left_front_leg", CubeListBuilder.create().texOffs(26, 24).addBox(-0.55F, -0.5F, -0.5F, 1.25F, 3.5F, 1.25F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition right_leg_front = front_legs.addOrReplaceChild("right_leg_front", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition right_leg_front_base = right_leg_front.addOrReplaceChild("right_leg_front_base", CubeListBuilder.create().texOffs(26, 12).addBox(-2.75F, 3.75F, 0.0F, 2.0F, 1.25F, 1.75F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition right_leg_front_base = right_leg_front.addOrReplaceChild("right_leg_front_base", CubeListBuilder.create().texOffs(0, 25).addBox(-2.75F, 3.75F, 0.0F, 2.0F, 1.25F, 1.75F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition right_leg_front_leg = right_leg_front.addOrReplaceChild("right_leg_front_leg", CubeListBuilder.create().texOffs(26, 15).addBox(-0.45F, 0.0F, -0.75F, 1.25F, 4.0F, 1.25F, new CubeDeformation(0.0F)), PartPose.offset(-1.8F, 4.0F, 1.0F));
 
@@ -58,30 +58,30 @@ public class BrunoModel<T extends BrunoEntity> extends HierarchicalModel<T> {
 
         PartDefinition left_leg_back = back_legs.addOrReplaceChild("left_leg_back", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_leg_back_base = left_leg_back.addOrReplaceChild("left_leg_back_base", CubeListBuilder.create().texOffs(12, 20).addBox(4.75F, 3.75F, -2.75F, 2.25F, 1.75F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition left_leg_back_base = left_leg_back.addOrReplaceChild("left_leg_back_base", CubeListBuilder.create().texOffs(20, 20).addBox(4.75F, 3.75F, -2.75F, 2.25F, 1.75F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition left_leg_back_leg = left_leg_back.addOrReplaceChild("left_leg_back_leg", CubeListBuilder.create().texOffs(12, 27).addBox(-0.5F, -0.5F, -0.55F, 1.25F, 3.5F, 1.25F, new CubeDeformation(0.0F)), PartPose.offset(6.0F, 5.0F, -1.7F));
+        PartDefinition left_leg_back_leg = left_leg_back.addOrReplaceChild("left_leg_back_leg", CubeListBuilder.create().texOffs(8, 27).addBox(-0.5F, -0.5F, -0.55F, 1.25F, 3.5F, 1.25F, new CubeDeformation(0.0F)), PartPose.offset(6.0F, 5.0F, -1.7F));
 
         PartDefinition right_leg_back = back_legs.addOrReplaceChild("right_leg_back", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition right_leg_back_base = right_leg_back.addOrReplaceChild("right_leg_back_base", CubeListBuilder.create().texOffs(20, 20).addBox(4.75F, 3.75F, -0.25F, 2.25F, 1.75F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition right_leg_back_base = right_leg_back.addOrReplaceChild("right_leg_back_base", CubeListBuilder.create().texOffs(0, 21).addBox(4.75F, 3.75F, -0.25F, 2.25F, 1.75F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition right_leg_back_leg = right_leg_back.addOrReplaceChild("right_leg_back_leg", CubeListBuilder.create().texOffs(16, 27).addBox(-0.5F, 0.5F, -0.7F, 1.25F, 3.5F, 1.25F, new CubeDeformation(0.0F)), PartPose.offset(6.0F, 4.0F, 0.7F));
+        PartDefinition right_leg_back_leg = right_leg_back.addOrReplaceChild("right_leg_back_leg", CubeListBuilder.create().texOffs(12, 27).addBox(-0.5F, 0.5F, -0.7F, 1.25F, 3.5F, 1.25F, new CubeDeformation(0.0F)), PartPose.offset(6.0F, 4.0F, 0.7F));
 
         PartDefinition head = base.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 15).addBox(-5.75F, -1.0F, -2.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F))
-                .texOffs(18, 4).addBox(-5.5F, -1.5F, -1.75F, 2.5F, 0.5F, 2.5F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+                .texOffs(18, 4).addBox(-5.5F, -1.5F, -1.75F, 2.5F, 1.0F, 2.5F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition ears = head.addOrReplaceChild("ears", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition left_ear = ears.addOrReplaceChild("left_ear", CubeListBuilder.create().texOffs(8, 21).addBox(-0.75F, -0.75F, -2.5F, 1.0F, 1.25F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(-4.0F, -1.0F, 0.0F));
 
-        PartDefinition ear_r1 = left_ear.addOrReplaceChild("ear_r1", CubeListBuilder.create().texOffs(20, 27).addBox(-0.75F, -0.9F, -1.25F, 1.0F, 1.0F, 2.02F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.5F, -2.25F, 0.7854F, 0.0F, 0.0F));
+        PartDefinition ear_r1 = left_ear.addOrReplaceChild("ear_r1", CubeListBuilder.create().texOffs(0, 28).addBox(-0.75F, -0.9F, -1.25F, 1.0F, 1.0F, 2.02F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.5F, -2.25F, 0.7854F, 0.0F, 0.0F));
 
-        PartDefinition right_ear = ears.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(28, 0).addBox(-4.75F, -1.75F, 0.5F, 1.0F, 1.25F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition right_ear = ears.addOrReplaceChild("right_ear", CubeListBuilder.create().texOffs(22, 27).addBox(-4.75F, -1.75F, 0.5F, 1.0F, 1.25F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-        PartDefinition ear_r2 = right_ear.addOrReplaceChild("ear_r2", CubeListBuilder.create().texOffs(26, 27).addBox(1.0F, -0.9F, -0.77F, 1.0F, 1.0F, 2.02F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-5.75F, -0.5F, 1.25F, -0.7854F, 0.0F, 0.0F));
+        PartDefinition ear_r2 = right_ear.addOrReplaceChild("ear_r2", CubeListBuilder.create().texOffs(28, 0).addBox(1.0F, -0.9F, -0.77F, 1.0F, 1.0F, 2.02F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-5.75F, -0.5F, 1.25F, -0.7854F, 0.0F, 0.0F));
 
-        PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(18, 24).addBox(-7.25F, 0.5F, -1.25F, 2.5F, 1.0F, 1.5F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
+        PartDefinition nose = head.addOrReplaceChild("nose", CubeListBuilder.create().texOffs(26, 12).addBox(-7.25F, 0.5F, -1.25F, 2.5F, 1.0F, 1.5F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
         PartDefinition tail2 = base.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(0, 3).addBox(7.0F, 2.0F, -1.25F, 2.0F, 1.25F, 1.5F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
@@ -97,7 +97,7 @@ public class BrunoModel<T extends BrunoEntity> extends HierarchicalModel<T> {
 
         PartDefinition tail_tip = tail.addOrReplaceChild("tail_tip", CubeListBuilder.create(), PartPose.offset(2.0F, -2.0F, 0.0F));
 
-        PartDefinition tail_r5 = tail_tip.addOrReplaceChild("tail_r5", CubeListBuilder.create().texOffs(0, 28).addBox(-0.75F, 0.0F, -0.75F, 0.75F, 3.0F, 1.5F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.5F, -1.5F, 0.0F, 0.0F, 0.0F, 0.3927F));
+        PartDefinition tail_r5 = tail_tip.addOrReplaceChild("tail_r5", CubeListBuilder.create().texOffs(16, 27).addBox(-1.0F, 0.0F, -0.75F, 1.0F, 3.0F, 1.5F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.5F, -1.5F, 0.0F, 0.0F, 0.0F, 0.3927F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
