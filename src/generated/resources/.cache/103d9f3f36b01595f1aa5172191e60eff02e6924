@@ -1,10 +1,11 @@
-// 1.21.1	2025-02-22T19:04:39.6506078	Registries
+// 1.21.1	2025-02-25T15:34:23.1910444	Registries
 0858d0a25db51b4a29b4829107037a808c78a415 data/testmod/enchantment/lightning_striker.json
 0066cdf8c8f1814222b14a75c77c905e616cc36d data/testmod/forge/biome_modifier/add_brunite_ore.json
 696444ff1032c2390f41c65a6268346cfa09ce55 data/testmod/forge/biome_modifier/add_end_brunite_ore.json
 757db2043242a0eddf76c69b0b0ece1f30e2a190 data/testmod/forge/biome_modifier/add_honey_berry_bush.json
 49dac90129bfbd7836600d91cc9984fc7e8561b1 data/testmod/forge/biome_modifier/add_nether_brunite_ore.json
 b521d47c3376000fc66e2dc35d1a8245fb619a84 data/testmod/forge/biome_modifier/add_tree_brune.json
+74b902e7fc07a45715b81e6ff4668fc135098732 data/testmod/forge/biome_modifier/zombie_plains.json
 ae566a1e0e973ccd1cdfabd4ec32aa5eb49296ca data/testmod/trim_material/brunite.json
 a0e11863765e8f4976d8263fb8f9af61dac8e796 data/testmod/trim_pattern/kaupen.json
 3f2a60342bd6499fb30dd233de6dbea80d0b0c7b data/testmod/worldgen/configured_feature/brune.json

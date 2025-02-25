@@ -8,9 +8,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.monster.Monster;
@@ -20,15 +24,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.brewing.BrewingRecipeRegisterEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.NotNull;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -80,6 +92,7 @@ public class ModEvents {
         builder.addMix(Potions.AWKWARD, Items.SLIME_BALL, ModPotions.SLIMEY_POTION.getHolder().get());
     }
 
+
     @SubscribeEvent
     public static void onLivingSetAttackTarget(@NotNull LivingChangeTargetEvent event) {
         if (event.getEntity() instanceof Zombie zombie) {
@@ -121,6 +134,17 @@ public class ModEvents {
 
     }
 
+    @SubscribeEvent
+    public static void onMobTick(LivingTickEvent event) {
+        if(event.getEntity() instanceof Zombie zombie) {
+            BlockPos eyePosition = BlockPos.containing(zombie.getX(), zombie.getEyeY(), zombie.getZ());
+            if(zombie.level().isDay() && zombie.level().canSeeSky(eyePosition) && zombie.isOnFire() && !zombie.isInLava()) {
+                zombie.clearFire();
+            }
+        }
+    }
+
+
     public static UUID getTargetPlayerUUID(Zombie zombie) {
         CompoundTag persistentData = zombie.getPersistentData();
         if (persistentData.hasUUID("TargetPlayerUUID")) {
@@ -138,5 +162,7 @@ public class ModEvents {
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         return server.getPlayerList().getPlayer(playerUUID);
     }
+
+
 
 }

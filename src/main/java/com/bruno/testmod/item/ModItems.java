@@ -2,6 +2,7 @@ package com.bruno.testmod.item;
 
 import com.bruno.testmod.TestMod;
 import com.bruno.testmod.block.ModBlocks;
+import com.bruno.testmod.entity.ModEntities;
 import com.bruno.testmod.item.custom.ChiselItem;
 import com.bruno.testmod.item.custom.FuelItem;
 import com.bruno.testmod.item.custom.HammerItem;
@@ -11,6 +12,7 @@ import com.bruno.testmod.sound.ModSounds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -98,6 +100,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> HONEY_BERRY = ITEMS.register("honey_berries",
             () -> new ItemNameBlockItem(ModBlocks.HONEY_BERRY_BUSH.get(), new Item.Properties().food(ModFoodProperties.HONEY_BERRY)));
+
+    public static final RegistryObject<Item> BRUNO_SPAWN_EGG = ITEMS.register("bruno_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.BRUNO, 0x53524b, 0xdac741, new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -76,6 +76,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ModItems.HONEY_BERRY.get());
 
         saplingItem(ModBlocks.BRUNE_SAPLING);
+
+        withExistingParent(ModItems.BRUNO_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
     }
 
     private ItemModelBuilder saplingItem(RegistryObject<Block> item) {

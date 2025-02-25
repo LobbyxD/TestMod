@@ -31,6 +31,8 @@
   "item.minecraft.splash_potion.effect.slimey_potion": "Slimey Splash Potion",
   "item.minecraft.lingering_potion.effect.slimey_potion": "Slimey Lingering Potion",
 
+  "item.testmod.bruno_spawn_egg": "Bruno Spawn Egg",
+
   "item.testmod.kohlrabi_seeds": "Kohlrabi Seeds",
   "item.testmod.honey_berries": "Honey Berries",
   "block.testmod.kohlrabi_crop": "Kohlrabi Crop",
@@ -74,5 +76,7 @@
   "tooltip.testmod.magic_block.tooltip": "This block is quite §9MAGICAL§r §8WORD§7WORD2§r",
 
   "trim_pattern.testmod.kaupen": "Kaupen Armor Trim",
-  "trim_material.testmod.brunite": "Brunite Material"
+  "trim_material.testmod.brunite": "Brunite Material",
+
+  "entity.testmod.bruno": "Bruno"
 }

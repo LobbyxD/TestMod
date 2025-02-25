@@ -4,12 +4,15 @@ import com.bruno.testmod.block.ModBlocks;
 import com.bruno.testmod.component.ModDataComponentTypes;
 import com.bruno.testmod.effect.ModEffects;
 import com.bruno.testmod.enchantment.ModEnchantmentEffects;
+import com.bruno.testmod.entity.ModEntities;
+import com.bruno.testmod.entity.client.BrunoRenderer;
 import com.bruno.testmod.item.ModCreativeModeTabs;
 import com.bruno.testmod.item.ModItems;
 import com.bruno.testmod.potion.ModPotions;
 import com.bruno.testmod.sound.ModSounds;
 import com.bruno.testmod.util.ModItemProperties;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -57,6 +60,8 @@ public class TestMod {
         ModDataComponentTypes.register(modEventBus);
 
         ModEnchantmentEffects.register(modEventBus);
+
+        ModEntities.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
 
@@ -108,6 +113,7 @@ public class TestMod {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModItemProperties.addCustomItemProperties();
+            EntityRenderers.register(ModEntities.BRUNO.get(), BrunoRenderer::new);
         }
     }
 }
