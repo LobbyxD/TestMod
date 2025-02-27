@@ -2,66 +2,48 @@ package com.bruno.testmod.event;
 
 import com.bruno.testmod.TestMod;
 import com.bruno.testmod.item.custom.HammerItem;
+import com.bruno.testmod.network.PacketHandler;
+import com.bruno.testmod.network.packets.ZombieLevelSyncPacket;
 import com.bruno.testmod.potion.ModPotions;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.brewing.BrewingRecipeRegisterEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.NotNull;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = TestMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEvents {
     public static final Set<BlockPos> HARVESTED_BLOCKS = new HashSet<>();
     private static final Random RANDOM = new Random();
+    public static final String LEVEL_TAG = "ZombieLevel"; // Unique key to store level
+    public static final String AGGRO_TAG = "ZombieAggro"; // Unique key to store level
 
     @SubscribeEvent
     public static void onHammerUsage(BlockEvent.BreakEvent event) {
@@ -158,6 +140,36 @@ public class ModEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void onHurtEvent(LivingHurtEvent event) {
+        if (event.getEntity() instanceof Zombie zombie && event.getSource().is(DamageTypes.PLAYER_ATTACK)) {
+            int level = getEntityLevel(zombie);
+            System.out.println("### Before Attack: Level = " + level);
+
+            setEntityData(zombie, level + 1, getEntityAggro(zombie));
+            System.out.println("### After Attack: Level = " + getEntityLevel(zombie));
+
+
+//            CompoundTag persistentData = zombie.getPersistentData().getCompound("ForgeData");
+//
+//            // Log before changing the level
+//            int oldLevel = persistentData.getInt("ZombieLevel");
+//            System.out.println("### Before Attack: Level = " + oldLevel);
+//
+//            // Increase level (example logic)
+//            int newLevel = oldLevel + 1;
+//            persistentData.putInt("ZombieLevel", newLevel);
+//            zombie.setPersistenceRequired();
+//
+//            System.out.println("### Zombie Level Increased: " + newLevel);
+
+            // **Send update to client**
+            //PacketHandler.sendToAllClients(new ZombieLevelSyncPacket(zombie.getId(), newLevel));
+        }
+    }
+
+    // but - when zombies load in the world its not updated yet
+
     // cancel damage + animation
     @SubscribeEvent
     public static void onLivingGetAttackedEvent(LivingAttackEvent event) {
@@ -200,6 +212,9 @@ public class ModEvents {
     // chance on spawn to make it rare
     @SubscribeEvent
     public static void onZombieSpawn(EntityJoinLevelEvent event) {
+        if (event.getLevel().isClientSide())
+            return;
+
         if (event.getEntity() instanceof Zombie zombie) {
             if(RANDOM.nextFloat() < 0.10) {
                 ItemStack helmet = new ItemStack(Items.DIAMOND_HELMET);
@@ -208,9 +223,56 @@ public class ModEvents {
 
             }
         }
+
+        if (event.getEntity() instanceof Zombie zombie) {
+
+            // assign level
+            int level = getEntityLevel(zombie);
+            if(level == -1) {
+                // decide if aggro or not
+                boolean isAggro = RANDOM.nextFloat() < 0.20;
+                setEntityData(zombie, 1, isAggro);
+                if(isAggro) {
+                    System.out.println("### Set aggro: " + zombie.getId());
+                }
+            } else {
+                zombie.level().getServer().execute(() -> {
+                    boolean isAggro = getEntityAggro(zombie);
+                    PacketHandler.sendToAllClients(new ZombieLevelSyncPacket(zombie.getId(), level, isAggro));
+                    System.out.println("### Sending Sync Packet to Client: " + level);
+                });
+            }
+        }
     }
 
+    // **Ensure Data is Saved When the World Saves**
+    @SubscribeEvent
+    public static void onAttachCapabilities(AttachCapabilitiesEvent<?> event) {
+        if (event.getObject() instanceof Zombie zombie) {
+            int level = getEntityLevel(zombie);
+            if(level > 0)
+                System.out.println("### onAttachCapabilities Zombie Level: " + level);
 
+        }
+    }
+
+    public static void setEntityData(Mob livingEntity, int level, boolean isAggro) {
+        CompoundTag persistentData = livingEntity.getPersistentData();
+        persistentData.putInt(LEVEL_TAG, level);
+        persistentData.putBoolean(AGGRO_TAG, isAggro);
+        PacketHandler.sendToAllClients(new ZombieLevelSyncPacket(livingEntity.getId(), level, isAggro));
+        livingEntity.setPersistenceRequired();
+    }
+
+    public static int getEntityLevel(LivingEntity livingEntity) {
+        CompoundTag persistentData = livingEntity.getPersistentData();
+        return persistentData.contains(LEVEL_TAG) ? persistentData.getInt(LEVEL_TAG) : -1;
+    }
+
+    public static boolean getEntityAggro(LivingEntity livingEntity) {
+        CompoundTag persistentData = livingEntity.getPersistentData();
+        return persistentData.contains(AGGRO_TAG) && persistentData.getBoolean(AGGRO_TAG);
+    }
 
     public static UUID getTargetPlayerUUID(Zombie zombie) {
         CompoundTag persistentData = zombie.getPersistentData();

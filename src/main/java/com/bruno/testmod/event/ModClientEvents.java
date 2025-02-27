@@ -2,29 +2,20 @@ package com.bruno.testmod.event;
 
 import com.bruno.testmod.TestMod;
 import com.bruno.testmod.item.ModItems;
+import com.bruno.testmod.network.PacketHandler;
+import com.bruno.testmod.network.packets.RequestZombieLevelPacket;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ComputeFovModifierEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.ZombieEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 
 @Mod.EventBusSubscriber(modid = TestMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ModClientEvents {
@@ -48,6 +39,15 @@ public class ModClientEvents {
         }
     }
 
+    // when client loads zombie, ask server to sync its level
+    @SubscribeEvent
+    public static void onZombieJoinClient(EntityJoinLevelEvent event) {
+        if (event.getLevel().isClientSide() && event.getEntity() instanceof Zombie zombie) {
+            System.out.println("### CLIENT: Detected Zombie ID " + zombie.getId() + " joining the world. Requesting level...");
+            PacketHandler.sendToServer(new RequestZombieLevelPacket(zombie.getId()));
+        }
+    }
+
     // health bar
     @SubscribeEvent
     public static void onRenderZombie(RenderLivingEvent.Post<Zombie, ?> event) {
@@ -56,50 +56,53 @@ public class ModClientEvents {
             MultiBufferSource bufferSource = event.getMultiBufferSource();
             Minecraft mc = Minecraft.getInstance();
 
-            if (mc.player == null || zombie.isInvisible()) return; // Ignore if no player or zombie is invisible
+            if (mc.player == null || zombie.isInvisible()) return;
 
-            // **Calculate Distance to Player**
             double distance = mc.player.distanceTo(zombie);
-            if (distance > MAX_RENDER_DISTANCE) return; // Don't render if too far away
+            if (distance > MAX_RENDER_DISTANCE) return;
 
             float health = zombie.getHealth();
             float maxHealth = zombie.getMaxHealth();
             float healthPercentage = health / maxHealth;
 
+            // **Fetch the latest zombie level from PersistentData**
+//            CompoundTag persistentData = zombie.getPersistentData().getCompound("ForgeData");
+//            int level = persistentData.getInt(ModEvents.LEVEL_TAG); // Ensure this always fetches the latest level
+            int level = ModEvents.getEntityLevel(zombie);
+            if(level == -1) {
+                System.out.println("ERROR in ModClient mob is level -1. Mob ID = " + zombie.getId());
+            }
+            boolean isAggro = ModEvents.getEntityAggro(zombie);
+
             // **Generate Health Bar**
-            int filledBars = (int) (BAR_LENGTH * healthPercentage); // Number of filled segments
-            int emptyBars = Math.max(1, BAR_LENGTH - filledBars); // Remaining empty segments
+            int filledBars = health == 0 ? 0 : Math.max(1, (int) (BAR_LENGTH * healthPercentage));
+            int emptyBars = BAR_LENGTH - filledBars;
+            String filled = "§a" + "█".repeat(filledBars);
+            String empty = "§7" + "▒".repeat(emptyBars);
+            String healthText = filled + empty;
 
-            String filled = "§a" + "█".repeat(filledBars);  // Green filled bar
-            String empty = "§7" + "▒".repeat(emptyBars);    // Gray empty bar
-            String healthText = filled + empty;             // Combine filled and empty
+            // **Display Entity Name and Level**
+            String nameColor = isAggro ? "§c" : "§f";
+            String entityName = nameColor + "Lv. " + level + " " + zombie.getDisplayName().getString();
 
-            // **Get Entity Name**
-            String entityName = zombie.getDisplayName().getString(); // Get the name (or "Zombie" if unnamed)
-
-            // Font renderer to draw text
             Font font = mc.font;
 
-            // Position the text above the zombie's head
             poseStack.pushPose();
-            poseStack.translate(0.0D, zombie.getBbHeight() + 0.6F, 0.0D); // Move text above head
+            poseStack.translate(0.0D, zombie.getBbHeight() + 0.6F, 0.0D);
+            poseStack.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
+            poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+            poseStack.scale(-0.025F, -0.025F, 0.025F);
 
-            // **Rotate text to always face the camera**
-            poseStack.mulPose(mc.getEntityRenderDispatcher().cameraOrientation()); // Correct method
-            poseStack.mulPose(Axis.YP.rotationDegrees(180.0F)); // Fixes upside-down rendering
-
-            poseStack.scale(-0.025F, -0.025F, 0.025F); // Adjust text size
-
-            // **Draw Entity Name Above**
+            // **Always Fetch and Render the Latest Level**
             float nameWidth = font.width(entityName) / 2.0F;
             font.drawInBatch(entityName, -nameWidth, -10, 0xFFFFFF, false, poseStack.last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, event.getPackedLight());
 
-            // **Draw the Health Bar Below**
             float textWidth = font.width(healthText) / 2.0F;
             font.drawInBatch(healthText, -textWidth, 0, 0xFFFFFF, false, poseStack.last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, event.getPackedLight());
 
             poseStack.popPose();
         }
     }
+
 
 }

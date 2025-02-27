@@ -8,6 +8,7 @@ import com.bruno.testmod.entity.ModEntities;
 import com.bruno.testmod.entity.client.BrunoRenderer;
 import com.bruno.testmod.item.ModCreativeModeTabs;
 import com.bruno.testmod.item.ModItems;
+import com.bruno.testmod.network.PacketHandler;
 import com.bruno.testmod.potion.ModPotions;
 import com.bruno.testmod.sound.ModSounds;
 import com.bruno.testmod.util.ModItemProperties;
@@ -114,6 +115,7 @@ public class TestMod {
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModItemProperties.addCustomItemProperties();
             EntityRenderers.register(ModEntities.BRUNO.get(), BrunoRenderer::new);
+            PacketHandler.register();
         }
     }
 }

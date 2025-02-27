@@ -5,6 +5,7 @@ import com.bruno.testmod.entity.ModEntities;
 import com.bruno.testmod.entity.client.BrunoAnimations;
 import com.bruno.testmod.entity.client.BrunoModel;
 import com.bruno.testmod.entity.custom.BrunoEntity;
+import com.bruno.testmod.network.PacketHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
@@ -18,6 +19,7 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import static net.minecraft.world.entity.Mob.checkMobSpawnRules;
 
@@ -44,15 +46,15 @@ public class ModEventBusEvents {
     public static boolean checkMonsterSpawnRules(
             EntityType<? extends Monster> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom
     ) {
-        if (pType.equals(EntityType.ZOMBIE)) {
-            System.out.println("@@@@@@@@@@ ZOMBIE HERE @@@@@@@@@@");
-            System.out.println(pType);
-            System.out.println(pLevel.toString());
-            System.out.println(pSpawnType.toString());
-            System.out.println(pPos.toString());
-            System.out.println(pLevel.getDifficulty() != Difficulty.PEACEFUL
-                    && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom));
-        }
+//        if (pType.equals(EntityType.ZOMBIE)) {
+//            System.out.println("@@@@@@@@@@ ZOMBIE HERE @@@@@@@@@@");
+//            System.out.println(pType);
+//            System.out.println(pLevel.toString());
+//            System.out.println(pSpawnType.toString());
+//            System.out.println(pPos.toString());
+//            System.out.println(pLevel.getDifficulty() != Difficulty.PEACEFUL
+//                    && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom));
+//        }
         return pLevel.getDifficulty() != Difficulty.PEACEFUL
                 && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
     }
@@ -62,4 +64,11 @@ public class ModEventBusEvents {
         return true;
         //return world.getDifficulty() != Difficulty.PEACEFUL && Zombie.checkMobSpawnRules(type, world, spawnType, pos, random);
     }
+
+//    @SubscribeEvent
+//    public static void commonSetup(FMLCommonSetupEvent event) {
+//        event.enqueueWork(() -> {
+//            PacketHandler.register();
+//        });
+//    }
 }
