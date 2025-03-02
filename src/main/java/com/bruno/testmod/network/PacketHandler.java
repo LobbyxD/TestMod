@@ -3,6 +3,7 @@ package com.bruno.testmod.network;
 import com.bruno.testmod.TestMod;
 import com.bruno.testmod.network.packets.RequestZombieLevelPacket;
 import com.bruno.testmod.network.packets.ZombieLevelSyncPacket;
+import com.bruno.testmod.testcurios.OpenCustomSlotPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -32,6 +33,12 @@ public class PacketHandler {
                 .encoder(RequestZombieLevelPacket::encode)
                 .decoder(RequestZombieLevelPacket::new)
                 .consumerMainThread(RequestZombieLevelPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(OpenCustomSlotPacket.class, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(OpenCustomSlotPacket::encode)
+                .decoder(OpenCustomSlotPacket::new)
+                .consumerMainThread(OpenCustomSlotPacket::handle)
                 .add();
     }
 

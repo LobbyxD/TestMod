@@ -5,9 +5,13 @@ import com.bruno.testmod.item.custom.HammerItem;
 import com.bruno.testmod.network.PacketHandler;
 import com.bruno.testmod.network.packets.ZombieLevelSyncPacket;
 import com.bruno.testmod.potion.ModPotions;
+import com.bruno.testmod.synchedData.ZombieDataManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -150,6 +154,13 @@ public class ModEvents {
             System.out.println("### After Attack: Level = " + getEntityLevel(zombie));
 
 
+
+
+            var data = ZombieDataManager.getCustomValue(zombie);
+            Player player = (Player) event.getSource().getEntity();
+            player.sendSystemMessage(Component.literal("Zombie is " + data));
+
+
 //            CompoundTag persistentData = zombie.getPersistentData().getCompound("ForgeData");
 //
 //            // Log before changing the level
@@ -220,7 +231,6 @@ public class ModEvents {
                 ItemStack helmet = new ItemStack(Items.DIAMOND_HELMET);
                 zombie.setItemSlot(EquipmentSlot.HEAD, helmet);
                 zombie.setDropChance(EquipmentSlot.HEAD, 0.0F); // Prevents dropping the item
-
             }
         }
 

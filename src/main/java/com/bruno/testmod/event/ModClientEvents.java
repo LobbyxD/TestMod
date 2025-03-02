@@ -1,6 +1,7 @@
 package com.bruno.testmod.event;
 
 import com.bruno.testmod.TestMod;
+import com.bruno.testmod.entity.client.screen.CustomInventoryScreen;
 import com.bruno.testmod.item.ModItems;
 import com.bruno.testmod.network.PacketHandler;
 import com.bruno.testmod.network.packets.RequestZombieLevelPacket;
@@ -8,12 +9,15 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ComputeFovModifierEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -103,6 +107,4 @@ public class ModClientEvents {
             poseStack.popPose();
         }
     }
-
-
 }

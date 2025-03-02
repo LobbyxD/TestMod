@@ -6,20 +6,28 @@ import com.bruno.testmod.effect.ModEffects;
 import com.bruno.testmod.enchantment.ModEnchantmentEffects;
 import com.bruno.testmod.entity.ModEntities;
 import com.bruno.testmod.entity.client.BrunoRenderer;
+import com.bruno.testmod.entity.client.menu.CustomChestMenu;
+import com.bruno.testmod.entity.client.menu.ModMenu;
 import com.bruno.testmod.item.ModCreativeModeTabs;
 import com.bruno.testmod.item.ModItems;
 import com.bruno.testmod.network.PacketHandler;
 import com.bruno.testmod.potion.ModPotions;
 import com.bruno.testmod.sound.ModSounds;
+import com.bruno.testmod.testcurios.ModMenus;
 import com.bruno.testmod.util.ModItemProperties;
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -29,7 +37,10 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 
 import java.util.Map;
@@ -41,6 +52,27 @@ public class TestMod {
     public static final String MOD_ID = "testmod";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
+
+    public static final KeyMapping OPEN_CUSTOM_GUI_KEY = new KeyMapping(
+            "key.testmod.open_custom_gui", // The translation key for the keybinding
+            GLFW.GLFW_KEY_G, // The default key (G in this case)
+            "key.categories.testmod" // The category for your keybinding
+    );
+    public static final KeyMapping OPEN_CUSTOM_SCREEN = new KeyMapping(
+            "key.testmod.open_custom_screen", // The translation key of the keybinding's name
+            GLFW.GLFW_KEY_H, // The keycode of the key
+            "key.categories.inventory" // The translation key of the keybinding's category
+    );
+    public static final KeyMapping OPEN_CUSTOM_INVENTORY_KEY = new KeyMapping(
+            "key.testmod.open_custom_inventory",
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_E,
+            "key.categories.inventory"
+    );
+
+
+
+
 
     public TestMod(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
@@ -65,6 +97,11 @@ public class TestMod {
         ModEntities.register(modEventBus);
 
         modEventBus.addListener(this::addCreative);
+
+        ModMenu.register(modEventBus);
+        ModMenus.register(modEventBus);
+
+        MinecraftForge.EVENT_BUS.register(this);
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -117,5 +154,12 @@ public class TestMod {
             EntityRenderers.register(ModEntities.BRUNO.get(), BrunoRenderer::new);
             PacketHandler.register();
         }
+    }
+
+    @SubscribeEvent
+    public void registerKeyMappings(RegisterKeyMappingsEvent event) {
+        event.register(OPEN_CUSTOM_GUI_KEY);
+        event.register(OPEN_CUSTOM_SCREEN);
+        event.register(OPEN_CUSTOM_INVENTORY_KEY);
     }
 }
