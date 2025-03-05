@@ -1,6 +1,7 @@
 package com.bruno.testmod;
 
 import com.bruno.testmod.block.ModBlocks;
+import com.bruno.testmod.block.entity.ModBlockEntities;
 import com.bruno.testmod.component.ModDataComponentTypes;
 import com.bruno.testmod.effect.ModEffects;
 import com.bruno.testmod.enchantment.ModEnchantmentEffects;
@@ -102,6 +103,7 @@ public class TestMod {
         ModMenus.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
+        ModBlockEntities.register(modEventBus);
 
         context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

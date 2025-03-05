@@ -57,6 +57,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.BRUNITE_WALL.get());
         dropSelf(ModBlocks.BRUNITE_TRAP_DOOR.get());
         dropSelf(ModBlocks.BRUNITE_PRESSURE_PLATE.get());
+        dropSelf(ModBlocks.PEDESTAL.get());
 
         this.add(ModBlocks.BRUNITE_DOOR.get(),
                 block -> createDoorTable(ModBlocks.BRUNITE_DOOR.get()));
