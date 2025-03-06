@@ -3,6 +3,7 @@ package com.bruno.testmod.datagen;
 import com.bruno.testmod.TestMod;
 import com.bruno.testmod.block.ModBlocks;
 import com.bruno.testmod.block.custom.BruniteLampBlock;
+import com.bruno.testmod.block.custom.HighBlock;
 import com.bruno.testmod.block.custom.HoneyBerryBushBlock;
 import com.bruno.testmod.block.custom.KohlrabiCropBlock;
 import net.minecraft.data.PackOutput;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.SweetBerryBushBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -77,7 +79,55 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         leavesBlock(ModBlocks.BRUNE_LEAVES);
         saplingBlock(ModBlocks.BRUNE_SAPLING);
+
+
+//        registerTallBlock(ModBlocks.HIGH_BLOCK);
+//        createTallBlockModels(ModBlocks.HIGH_BLOCK);
+
+        //generateTallBlockState(ModBlocks.HIGH_BLOCK);
+        //generateTallBlockModels(ModBlocks.HIGH_BLOCK);
     }
+
+    public void generateTallBlockState(RegistryObject<Block> block) {
+        getVariantBuilder(block.get()).forAllStates(state -> {
+            DoubleBlockHalf half = state.getValue(HighBlock.HALF);
+            String modelName = block.getId().getPath() + (half == DoubleBlockHalf.LOWER ? "_lower" : "_upper");
+            return ConfiguredModel.builder()
+                    .modelFile(models().getExistingFile(modLoc("block/" + modelName)))
+                    .build();
+        });
+    }
+
+
+    public void generateTallBlockModels(RegistryObject<Block> block) {
+        String baseName = block.getId().getPath();
+        models().withExistingParent(baseName + "_lower", modLoc("block/blockmodel"))
+                .texture("texture", modLoc("block/texture"));
+        models().withExistingParent(baseName + "_upper", modLoc("block/blockmodel"))
+                .texture("texture", modLoc("block/texture"));
+    }
+
+
+    private void registerTallBlock(RegistryObject<Block> blockRegistryObject) {
+        getVariantBuilder(blockRegistryObject.get()).forAllStates(state -> {
+            DoubleBlockHalf half = state.getValue(HighBlock.HALF);
+            String modelName = ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath() + (half == DoubleBlockHalf.LOWER ? "_lower" : "_upper");
+            return ConfiguredModel.builder()
+                    .modelFile(models().cubeAll(modelName, modLoc("block/" + modelName)))
+                    .build();
+        });
+    }
+
+    private void createTallBlockModels(RegistryObject<Block> blockRegistryObject) {
+        String baseName = ForgeRegistries.BLOCKS.getKey(blockRegistryObject.get()).getPath();
+        // Lower part model
+        models().cubeAll(baseName + "_lower", modLoc("block/" + baseName + "_lower"));
+        // Upper part model
+        models().cubeAll(baseName + "_upper", modLoc("block/" + baseName + "_upper"));
+    }
+
+
+
 
     private void saplingBlock(RegistryObject<Block> blockRegistryObject) {
         simpleBlock(blockRegistryObject.get(),

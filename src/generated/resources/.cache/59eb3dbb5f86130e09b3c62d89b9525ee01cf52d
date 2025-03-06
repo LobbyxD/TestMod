@@ -1,4 +1,4 @@
-// 1.21.1	2025-03-05T07:42:23.1412979	Loot Tables
+// 1.21.1	2025-03-06T13:26:50.5152782	Loot Tables
 7360a351313124adb7e202cee2a1b8fb6d42157d data/testmod/loot_table/blocks/brune_leaves.json
 28f53b18ee87a61ffe3288b56fd8c010ae7d68d9 data/testmod/loot_table/blocks/brune_log.json
 810d6cd3c77a6e8501aaa4a4dab186b52b84d907 data/testmod/loot_table/blocks/brune_planks.json
@@ -19,6 +19,7 @@ e18316c518658a631a389a8a4e4925a577bea2c9 data/testmod/loot_table/blocks/brunite_
 360fa556b4a0d9855788a1fa960ad6ae38205ce2 data/testmod/loot_table/blocks/brunite_stairs.json
 65aced9fad5d480eacf906fbd0c2609b273ce420 data/testmod/loot_table/blocks/brunite_trap_door.json
 bf89ba9ff0bb8cb0bb30e7865cb79de00bbf2385 data/testmod/loot_table/blocks/brunite_wall.json
+c4e95fcf54ba4316bdd7230a67092ed6ae8643c5 data/testmod/loot_table/blocks/high_block.json
 41036622a40a87781cca385c75ac115778302ebe data/testmod/loot_table/blocks/honey_berry_bush.json
 d55e7a198265d9153ce44aaded07779b0748c1ea data/testmod/loot_table/blocks/kohlrabi_crop.json
 61e3e8f2c8dfe3faa10b926e2715427fdfac8ea3 data/testmod/loot_table/blocks/magic_block.json

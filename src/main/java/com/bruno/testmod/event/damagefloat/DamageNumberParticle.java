@@ -68,8 +68,6 @@ public class DamageNumberParticle extends Particle {
         this.text = Component.literal((amount < 0 ? "+" : "") + DF(2).format(number));
 
         this.xd = POSITIONS.get((index % POSITIONS.size()));
-
-        System.out.println("[DamageNumberParticle] " + x + ", " + y + 1 + ", " + z + ", " + "Damage: " + amount + ", Text: " + this.text + ", az=" + dz);
     }
 
     private DecimalFormat DF(int i) {

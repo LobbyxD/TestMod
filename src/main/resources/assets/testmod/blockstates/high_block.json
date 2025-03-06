@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=lower": { "model": "testmod:block/high_block_lower" },
+        "half=upper": { "model": "testmod:block/high_block_upper" }
+    }
+}

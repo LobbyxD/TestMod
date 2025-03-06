@@ -64,7 +64,6 @@ public class ClientBoundDamageNumberMessage {
 //                int i = dummy.getNextNumberPos();
                 int i = 0;
                 spawnNumber(entity, i);
-                System.out.println("@@@@ HANDLE FIRED");
             }
         });
         context.setPacketHandled(true);
@@ -81,8 +80,6 @@ public class ClientBoundDamageNumberMessage {
 
         entity.level().addParticle(ModParticles.DAMAGE_NUMBER_PARTICLE.get(),
                 entity.getX(), entity.getY() + 1, entity.getZ(), damageAmount, color, z);
-
-        System.out.println("[spawnNumber] " + entity.getX() + ", " + entity.getY() + 1 + ", " + entity.getZ() + ", " + "Damage: " + damageAmount);
     }
 
     // suboptimal but eh

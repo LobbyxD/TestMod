@@ -123,6 +123,13 @@ public class ModBlocks {
     public static final RegistryObject<Block> HONEY_BERRY_BUSH = BLOCKS.register("honey_berry_bush",
             () -> new HoneyBerryBushBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH)));
 
+    public static final RegistryObject<Block> HIGH_BLOCK = registerBlock("high_block",
+            () -> new HighBlock(BlockBehaviour.Properties.of().
+                    strength(1f).
+                    requiresCorrectToolForDrops().
+                    sound(SoundType.ANVIL).
+                    dynamicShape().noOcclusion()
+            ));
 
     // custom tree
     public static final RegistryObject<RotatedPillarBlock> BRUNE_LOG = registerBlock("brune_log",

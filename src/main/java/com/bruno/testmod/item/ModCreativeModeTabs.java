@@ -83,6 +83,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.BRUNO_SPAWN_EGG.get());
                         output.accept(ModBlocks.PEDESTAL.get());
 
+                        output.accept(ModBlocks.HIGH_BLOCK.get());
+
 
                     }).build());
 

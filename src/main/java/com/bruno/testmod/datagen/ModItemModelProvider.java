@@ -54,6 +54,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         wallItem(ModBlocks.BRUNITE_WALL, ModBlocks.BRUNITE_BLOCK);
 
         simpleBlockItem(ModBlocks.BRUNITE_DOOR);
+        simpleBlockItem(ModBlocks.HIGH_BLOCK);
 
         handheldItem(ModItems.BRUNITE_SWORD);
         handheldItem(ModItems.BRUNITE_PICKAXE);

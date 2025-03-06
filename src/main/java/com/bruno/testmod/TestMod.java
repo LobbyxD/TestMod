@@ -147,6 +147,7 @@ public class TestMod {
             event.accept(ModBlocks.BRUNITE_ORE);
             event.accept(ModBlocks.BRUNITE_DEEPSLATE_ORE);
             event.accept(ModBlocks.MAGIC_BLOCK);
+            event.accept(ModBlocks.HIGH_BLOCK);
         }
     }
 

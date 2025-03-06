@@ -1,4 +1,4 @@
-// 1.21.1	2025-02-25T18:31:13.1041979	Item Models: testmod
+// 1.21.1	2025-03-06T15:39:21.6922056	Item Models: testmod
 bd40b1f60f98b5c3ed3c546e107764322fc90884 assets/testmod/models/item/bar_brawl_music_disc.json
 0fb7f2a0dbfd56222aa80d2b0951f7f02b484a8b assets/testmod/models/item/brune_sapling.json
 d744c68c08d8f7dd8e93f28f1c88c29da0001763 assets/testmod/models/item/brunite.json
@@ -59,6 +59,7 @@ f8f13dab12ffaa516e7a54726f90d851abd7b82b assets/testmod/models/item/brunite_pick
 ae9b542e60709b613e0bfd68c4f17427e1c5feed assets/testmod/models/item/brunite_wall.json
 a834c244b0c5cd141e29839123c76fcee8503b70 assets/testmod/models/item/bruno_ashes.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/testmod/models/item/bruno_spawn_egg.json
+f21b49fed5d6c02bde9984ca470170b5c158127f assets/testmod/models/item/high_block.json
 a01bb5558fdc0a38d29987267fe7c31ae445e97e assets/testmod/models/item/honey_berries.json
 7fa086972e218439580110d19c5ad1e18d620901 assets/testmod/models/item/kaupen_armor_trim_smithing_template.json
 8042d31ac61534eaaef256b3fad3b54da87c81f1 assets/testmod/models/item/kohlrabi.json
