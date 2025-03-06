@@ -1,12 +1,11 @@
 package com.bruno.testmod.network;
 
 import com.bruno.testmod.TestMod;
+import com.bruno.testmod.event.damagefloat.ClientBoundDamageNumberMessage;
 import com.bruno.testmod.network.packets.RequestZombieLevelPacket;
 import com.bruno.testmod.network.packets.ZombieLevelSyncPacket;
-import com.bruno.testmod.testcurios.OpenCustomSlotPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.ChannelBuilder;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
@@ -35,11 +34,18 @@ public class PacketHandler {
                 .consumerMainThread(RequestZombieLevelPacket::handle)
                 .add();
 
-        INSTANCE.messageBuilder(OpenCustomSlotPacket.class, NetworkDirection.PLAY_TO_SERVER)
-                .encoder(OpenCustomSlotPacket::encode)
-                .decoder(OpenCustomSlotPacket::new)
-                .consumerMainThread(OpenCustomSlotPacket::handle)
+
+        INSTANCE.messageBuilder(ClientBoundDamageNumberMessage.class, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(ClientBoundDamageNumberMessage::encode)
+                .decoder(ClientBoundDamageNumberMessage::new)
+                .consumerMainThread(ClientBoundDamageNumberMessage::handle)
                 .add();
+//
+//        INSTANCE.messageBuilder(OpenCustomSlotPacket.class, NetworkDirection.PLAY_TO_SERVER)
+//                .encoder(OpenCustomSlotPacket ::encode)
+//                .decoder(OpenCustomSlotPacket ::new)
+//                .consumerMainThread(OpenCustomSlotPacket ::handle)
+//                .add();
     }
 
     public static void sendToServer(Object msg) {

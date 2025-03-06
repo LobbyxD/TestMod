@@ -71,10 +71,11 @@ public class ModBiomeModifiers {
                 GenerationStep.Decoration.VEGETAL_DECORATION
         ));
 
-        context.register(SPAWN_ZOMBIES_MMO, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
-                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
-                List.of(new MobSpawnSettings.SpawnerData(EntityType.ZOMBIE, 1000, 3, 5))
-        ));
+        // spawn zombies
+//        context.register(SPAWN_ZOMBIES_MMO, new ForgeBiomeModifiers.AddSpawnsBiomeModifier(
+//                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+//                List.of(new MobSpawnSettings.SpawnerData(EntityType.ZOMBIE, 25, 3, 5))
+//        ));
     }
 
     private static ResourceKey<BiomeModifier> registerKey(String name) {
