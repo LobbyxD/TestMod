@@ -1,6 +1,8 @@
 package com.bruno.testmod.event;
 
 import com.bruno.testmod.TestMod;
+import com.bruno.testmod.block.custom.HighBlock;
+import com.bruno.testmod.block.entity.custom.LightningStrikeBlockEntity;
 import com.bruno.testmod.item.custom.HammerItem;
 import com.bruno.testmod.network.PacketHandler;
 import com.bruno.testmod.network.packets.ZombieLevelSyncPacket;
@@ -20,6 +22,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.GoalSelector;
+import net.minecraft.world.entity.ai.goal.ZombieAttackGoal;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zombie;
@@ -28,6 +32,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.brewing.BrewingRecipeRegisterEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -39,8 +45,10 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.NotNull;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 
+import java.awt.*;
 import java.util.*;
 import java.util.Random;
+import java.util.logging.Level;
 
 @Mod.EventBusSubscriber(modid = TestMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEvents {
@@ -226,6 +234,7 @@ public class ModEvents {
         if (event.getLevel().isClientSide())
             return;
 
+        // hat
         if (event.getEntity() instanceof Zombie zombie) {
             if(RANDOM.nextFloat() < 0.10) {
                 ItemStack helmet = new ItemStack(Items.DIAMOND_HELMET);
@@ -240,8 +249,8 @@ public class ModEvents {
             int level = getEntityLevel(zombie);
             if(level == -1) {
                 // decide if aggro or not
-                boolean isAggro = RANDOM.nextFloat() < 0.20;
-                setEntityData(zombie, 1, isAggro);
+                boolean isAggro = DecideAggro(zombie);
+                setEntityData(zombie, DecideLevel(zombie), isAggro);
                 if(isAggro) {
                     System.out.println("### Set aggro: " + zombie.getId());
                 }
@@ -252,7 +261,36 @@ public class ModEvents {
                     System.out.println("### Sending Sync Packet to Client: " + level);
                 });
             }
+
+            // set passive mobs
+            if(!getEntityAggro(zombie)) {
+                GoalSelector goalSelector = zombie.goalSelector;
+                for(var goalWrapper : goalSelector.getAvailableGoals()) {
+                    if(goalWrapper.getGoal() instanceof ZombieAttackGoal playerGoal) {
+                        goalSelector.removeGoal(playerGoal);
+                        break;
+                    }
+                }
+            }
         }
+    }
+
+    private static boolean DecideAggro(Zombie zombie) {
+        return RANDOM.nextFloat() < 0.20;
+    }
+
+    private static int DecideLevel(Zombie zombie) {
+        int y = zombie.getBlockY();
+        if(-16 <= y && y <= 24)
+            return RANDOM.nextInt(4, 6 + 1);  // 4 to 6
+
+        if(-32 <= y && y < -16)
+            return RANDOM.nextInt(10, 15 + 1);
+
+        if(-64 <= y && y < -32)
+            return RANDOM.nextInt(25, 40 + 1);
+
+        return 1;
     }
 
     // **Ensure Data is Saved When the World Saves**
@@ -302,6 +340,14 @@ public class ModEvents {
         return server.getPlayerList().getPlayer(playerUUID);
     }
 
-
-
+    @SubscribeEvent
+    public static void onLivingDrops(LivingDropsEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity instanceof Monster) {
+            CompoundTag data = entity.getPersistentData();
+            if (data.getBoolean(LightningStrikeBlockEntity.LIGHTNING_KILL_FLAG)) {
+                event.setCanceled(true); // Prevents drops
+            }
+        }
+    }
 }

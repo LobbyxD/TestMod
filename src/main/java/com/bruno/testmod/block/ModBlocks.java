@@ -125,7 +125,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> HIGH_BLOCK = registerBlock("high_block",
             () -> new HighBlock(BlockBehaviour.Properties.of().
-                    strength(1f).
+                    strength(-1f).
                     requiresCorrectToolForDrops().
                     sound(SoundType.ANVIL).
                     dynamicShape().noOcclusion()

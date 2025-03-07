@@ -1,11 +1,14 @@
 package com.bruno.testmod.block.custom;
 
+import com.bruno.testmod.block.entity.custom.LightningStrikeBlockEntity;
 import com.bruno.testmod.item.ModItems;
 import com.bruno.testmod.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,6 +23,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -29,22 +34,23 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.common.extensions.IForgeBlock;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 // CTRL + H on Block class to see all vanilla blocks
-public class HighBlock extends Block {
+public class HighBlock extends Block implements EntityBlock {
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
-
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HALF);
-    }
 
     public HighBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(HALF);
     }
 
     private boolean isValidItem(ItemStack item) {
@@ -89,5 +95,33 @@ public class HighBlock extends Block {
     @Override
     protected VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return Shapes.block();
+    }
+
+    private static final int TICKS_TO_SCAN = 5 * 20;
+
+    @Override
+    protected void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+        super.tick(pState, pLevel, pPos, pRandom);
+
+        BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+        if (blockEntity instanceof LightningStrikeBlockEntity) {
+            System.out.println("!!! tick and send lightning");
+            ((LightningStrikeBlockEntity) blockEntity).scanAndStrike();
+        }
+        pLevel.scheduleTick(pPos, this, TICKS_TO_SCAN); // Reschedule the next tick
+    }
+
+    @Override
+    protected void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pMovedByPiston) {
+        super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston);
+        if (!pLevel.isClientSide) {
+            System.out.println("!!! onPlace on server");
+            pLevel.scheduleTick(pPos, this, TICKS_TO_SCAN);
+        }
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new LightningStrikeBlockEntity(pPos, pState);
     }
 }

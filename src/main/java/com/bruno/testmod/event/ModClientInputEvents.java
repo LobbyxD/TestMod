@@ -15,19 +15,6 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = TestMod.MOD_ID, value = Dist.CLIENT)
 public class ModClientInputEvents {
-
-//    @SubscribeEvent
-//    public static void onScreenOpen(ScreenEvent.Opening event) {
-//        if (event.getScreen() instanceof InventoryScreen) {
-//            Minecraft mc = Minecraft.getInstance();
-//            event.setNewScreen(new CustomPlayerScreen(
-//                    new CustomPlayerMenu(mc.player.getInventory(), !mc.level.isClientSide, mc.player),
-//                    mc.player.getInventory(),
-//                    mc.player.getDisplayName()
-//            ));
-//        }
-//    }
-
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
