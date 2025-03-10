@@ -2,6 +2,7 @@ package com.bruno.testmod.event.damagefloat;
 
 import com.bruno.testmod.TestMod;
 import com.bruno.testmod.event.ModEvents;
+import com.bruno.testmod.skills.ModDamageSources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
@@ -84,6 +85,9 @@ public class ClientBoundDamageNumberMessage {
 
     // suboptimal but eh
     public static int getDamageColor(Holder<DamageType> damageTypeId) {
+        if(damageTypeId.is(ModDamageSources.CUSTOM_DAMAGE))
+            return 0x1898E3; // blue
+
         var values = 0xFF7700;
         return values;
     }

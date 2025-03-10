@@ -15,6 +15,7 @@ import com.bruno.testmod.item.ModCreativeModeTabs;
 import com.bruno.testmod.item.ModItems;
 import com.bruno.testmod.network.PacketHandler;
 import com.bruno.testmod.potion.ModPotions;
+import com.bruno.testmod.skills.healing.HealingParticle;
 import com.bruno.testmod.sound.ModSounds;
 import com.bruno.testmod.util.ModItemProperties;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -170,6 +171,7 @@ public class TestMod {
         @SubscribeEvent
         public static void registerParticleProvider(RegisterParticleProvidersEvent event) {
             event.registerSpecial(ModParticles.DAMAGE_NUMBER_PARTICLE.get(), new DamageNumberParticle.Factory(null));
+            event.registerSpriteSet(ModParticles.HEALING_PARTICLE.get(), HealingParticle.Provider::new);
         }
     }
 
