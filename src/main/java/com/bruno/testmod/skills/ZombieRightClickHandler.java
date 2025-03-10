@@ -95,18 +95,12 @@ public class ZombieRightClickHandler {
             double centerZ = player.getZ();
             double radius = 1.0; // Radius of the circle
             int particleCount = 18; // Number of particles
-            double angularVelocity = Math.PI / 36; // Angular velocity
 
-            Vec3 lookVec = player.getLookAngle().normalize();
             for (int i = 0; i < particleCount; i++) {
                 double initialAngle = 2 * Math.PI * i / particleCount;
                 double x = centerX + radius * Math.cos(initialAngle);
                 double z = centerZ + radius * Math.sin(initialAngle);
                 double y = centerY;
-
-                double velocityX = -angularVelocity * Math.sin(initialAngle) * lookVec.z;
-                double velocityZ = angularVelocity * Math.cos(initialAngle) * lookVec.x;
-                double velocityY = angularVelocity * centerY;
 
                 serverLevel.sendParticles(
                         ModParticles.HEALING_PARTICLE.get(),
@@ -117,23 +111,6 @@ public class ZombieRightClickHandler {
                 );
             }
         }
-
-
-
-    }
-
-    private static void healPlayer(Player player) {
-        player.displayClientMessage(Component.literal("Healing"), true);
-        if (player.level().isClientSide()) {
-            for (int i = 0; i < 360; i++) {
-                if(i % 20 == 0) {
-                    player.level().addParticle(ModParticles.HEALING_PARTICLE.get(),
-                            player.getX() + 0.5d, player.getY() + 1, player.getZ() + 0.5d,
-                            0, 0, 0);
-                }
-            }
-        }
-
     }
 
     private static void applyKnockbackAndDamage(Zombie zombie, Player player) {
