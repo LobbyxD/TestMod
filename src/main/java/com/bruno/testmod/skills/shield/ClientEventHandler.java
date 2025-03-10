@@ -41,88 +41,141 @@ public class ClientEventHandler {
         ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(TestMod.MOD_ID, "textures/entity/orbiting_texture.png");
         float scale = 0.5F; // Adjust the scale as needed
 
-        // Calculate the horizontal offset using a sine wave for smooth oscillation
-        double time = System.currentTimeMillis() / 1000.0; // Current time in seconds
-        float oscillationSpeed = 1.0F; // Oscillations per second
-        float amplitude = 0.5F; // Maximum horizontal movement
-        float horizontalOffset = (float) (Math.sin(time * Math.PI * 2 * oscillationSpeed) * amplitude);
+        // Calculate the horizontal offset using trigonometric functions
+        double time = (double) System.currentTimeMillis() / 1000.0; // Current time in seconds
+        float orbitRadius = 1.0F; // Radius of the orbit
+        float orbitSpeed = 4.0F; // Speed of the orbit
+        float heightAboveHead = -0.5f; // Adjust the height as needed
 
-        // Push the current transformation matrix
-        poseStack.pushPose();
+        // Draw the circular path
+        int circleColor = 0xFFFFFF; // White color
+        int segments = 50; // Number of segments to approximate the circle
+        float orbitHeight = player.getBbHeight() + heightAboveHead - 0.2f;
+        drawStackedCircles(poseStack, bufferSource, orbitRadius, segments, circleColor, light, orbitHeight, 5, 0.001f);
 
-        // Translate to the player's position, adjust the height, and apply horizontal offset
-        poseStack.translate(horizontalOffset, player.getBbHeight() + 0.5F, 0.0D);
+        float circle = (float) (Math.PI * 2);
+        float[] initialAngles = {0.0F, circle / 3, circle * 2 / 3};
+        for (int angleIdx = 0; angleIdx < initialAngles.length; angleIdx++) {
 
-        // Rotate to face the camera
-        poseStack.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
-        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+            float offsetX = orbitRadius * (float) Math.cos(time * orbitSpeed + initialAngles[angleIdx]);
+            float offsetZ = orbitRadius * (float) Math.sin(time * orbitSpeed + initialAngles[angleIdx]);  // time * orbitSpeed
 
-        // Scale the texture
-        poseStack.scale(-scale, -scale, scale);
+            // Calculate the rotation angle for the texture
+            float textureRotationSpeed = 90.0F; // Degrees per second
+            float textureRotationAngle = (float) (time * textureRotationSpeed % 360);
 
-        // Bind the texture
-        RenderSystem.setShaderTexture(0, texture);
+            // Push the current transformation matrix
+            poseStack.pushPose();
 
-        // Define the vertex consumer
-        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(texture));
+            // Translate to the player's position, adjust the height, and apply horizontal offset
 
-        // Render a simple quad (rectangle)
+            poseStack.translate(offsetX, player.getBbHeight() + heightAboveHead, offsetZ);
+
+            // Apply rotation to the texture around its center
+            poseStack.mulPose(Axis.YP.rotationDegrees(textureRotationAngle));
+
+            // Scale the texture
+            poseStack.scale(-scale, -scale, scale);
+
+            // Bind the texture
+            RenderSystem.setShaderTexture(0, texture);
+
+            // Define the vertex consumer
+            VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(texture));
+
+            // Render multiple quads stacked along the z-axis
+            Matrix4f matrix = poseStack.last().pose();
+
+            float halfWidth = 0.5F; // Half of the quad's width
+            float height = 1.0F; // Height of the quad
+            int numberOfQuads = 15; // Number of quads to stack
+            float depthOffset = 0.01F; // Distance between each stacked quad
+
+            float u0 = 0.0F; // Left edge of the texture
+            float u1 = 1.0F; // Right edge of the texture
+            float v0 = 1.0F; // Top edge of the texture
+            float v1 = 0.0F; // Bottom edge of the texture
+
+            int overlay = OverlayTexture.NO_OVERLAY;
+            float red = 1.0F, green = 1.0F, blue = 1.0F, alpha = 1.0F; // White color
+            float normalX = 0.0F, normalY = 1.0F, normalZ = 1.0F; // Normal pointing outward along z-axis
+
+            for (int i = 0; i < numberOfQuads; i++) {
+                float zOffset = i * depthOffset;
+
+                // Define the four corners of the quad
+                Vector3f topLeft = new Vector3f(-halfWidth, height, zOffset);
+                Vector3f topRight = new Vector3f(halfWidth, height, zOffset);
+                Vector3f bottomLeft = new Vector3f(-halfWidth, 0.0F, zOffset);
+                Vector3f bottomRight = new Vector3f(halfWidth, 0.0F, zOffset);
+
+                // Bottom-left vertex
+                vertexConsumer.addVertex(matrix, bottomLeft.x(), bottomLeft.y(), bottomLeft.z())
+                        .setColor((int) (red * 255), (int) (green * 255), (int) (blue * 255), (int) (alpha * 255))
+                        .setUv(u0, v1)
+                        .setOverlay(overlay)
+                        .setLight(light)
+                        .setNormal(normalX, normalY, normalZ);
+
+                // Bottom-right vertex
+                vertexConsumer.addVertex(matrix, bottomRight.x(), bottomRight.y(), bottomRight.z())
+                        .setColor((int) (red * 255), (int) (green * 255), (int) (blue * 255), (int) (alpha * 255))
+                        .setUv(u1, v1)
+                        .setOverlay(overlay)
+                        .setLight(light)
+                        .setNormal(normalX, normalY, normalZ);
+
+                // Top-right vertex
+                vertexConsumer.addVertex(matrix, topRight.x(), topRight.y(), topRight.z())
+                        .setColor((int) (red * 255), (int) (green * 255), (int) (blue * 255), (int) (alpha * 255))
+                        .setUv(u1, v0)
+                        .setOverlay(overlay)
+                        .setLight(light)
+                        .setNormal(normalX, normalY, normalZ);
+
+                // Top-left vertex
+                vertexConsumer.addVertex(matrix, topLeft.x(), topLeft.y(), topLeft.z())
+                        .setColor((int) (red * 255), (int) (green * 255), (int) (blue * 255), (int) (alpha * 255))
+                        .setUv(u0, v0)
+                        .setOverlay(overlay)
+                        .setLight(light)
+                        .setNormal(normalX, normalY, normalZ);
+            }
+
+            // Pop the transformation matrix to restore the previous state
+            poseStack.popPose();
+        }
+    }
+
+    private static void drawStackedCircles(PoseStack poseStack, MultiBufferSource bufferSource, float radius, int segments, int color, int light, float yOffset, int layers, float layerSpacing) {
+        VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.lines());
         Matrix4f matrix = poseStack.last().pose();
-
-        float halfWidth = 0.5F; // Half of the quad's width
-        float heightAboveHead = 1.0F; // Distance above the player's head
-        float zOffset = 0.0F; // Depth offset
-
-        // Define the four corners of the quad
-        Vector3f topLeft = new Vector3f(-halfWidth, heightAboveHead, zOffset);
-        Vector3f topRight = new Vector3f(halfWidth, heightAboveHead, zOffset);
-        Vector3f bottomLeft = new Vector3f(-halfWidth, 0.0F, zOffset);
-        Vector3f bottomRight = new Vector3f(halfWidth, 0.0F, zOffset);
-
-        float u0 = 0.0F; // Left edge of the texture
-        float u1 = 1.0F; // Right edge of the texture
-        float v0 = 1.0F; // Top edge of the texture
-        float v1 = 0.0F; // Bottom edge of the texture
-
-        int overlay = OverlayTexture.NO_OVERLAY;
-        float red = 1.0F, green = 1.0F, blue = 1.0F, alpha = 1.0F; // White color
+        float angleIncrement = (float) (2 * Math.PI / segments);
+        float red = (color >> 16 & 255) / 255.0F;
+        float green = (color >> 8 & 255) / 255.0F;
+        float blue = (color & 255) / 255.0F;
+        float alpha = 0.4F; // Full opacity
         float normalX = 0.0F, normalY = 1.0F, normalZ = 0.0F; // Upward normal
 
-        // Bottom-left vertex
-        vertexConsumer.addVertex(matrix, bottomLeft.x(), bottomLeft.y(), bottomLeft.z())
-                .setColor((int)(red * 255), (int)(green * 255), (int)(blue * 255), (int)(alpha * 255))
-                .setUv(u0, v1)
-                .setOverlay(overlay)
-                .setLight(light)
-                .setNormal(normalX, normalY, normalZ);
+        for (int layer = 0; layer < layers; layer++) {
+            float currentYOffset = yOffset + layer * layerSpacing;
+            for (int i = 0; i <= segments; i++) {
+                float angle = i * angleIncrement;
+                float x = radius * (float) Math.cos(angle);
+                float z = radius * (float) Math.sin(angle);
 
-        // Bottom-right vertex
-        vertexConsumer.addVertex(matrix, bottomRight.x(), bottomRight.y(), bottomRight.z())
-                .setColor((int)(red * 255), (int)(green * 255), (int)(blue * 255), (int)(alpha * 255))
-                .setUv(u1, v1)
-                .setOverlay(overlay)
-                .setLight(light)
-                .setNormal(normalX, normalY, normalZ);
-
-        // Top-right vertex
-        vertexConsumer.addVertex(matrix, topRight.x(), topRight.y(), topRight.z())
-                .setColor((int)(red * 255), (int)(green * 255), (int)(blue * 255), (int)(alpha * 255))
-                .setUv(u1, v0)
-                .setOverlay(overlay)
-                .setLight(light)
-                .setNormal(normalX, normalY, normalZ);
-
-        // Top-left vertex
-        vertexConsumer.addVertex(matrix, topLeft.x(), topLeft.y(), topLeft.z())
-                .setColor((int)(red * 255), (int)(green * 255), (int)(blue * 255), (int)(alpha * 255))
-                .setUv(u0, v0)
-                .setOverlay(overlay)
-                .setLight(light)
-                .setNormal(normalX, normalY, normalZ);
-
-        // Pop the transformation matrix to restore the previous state
-        poseStack.popPose();
+                vertexConsumer.addVertex(matrix, x, currentYOffset, z)
+                        .setColor((int) (red * 255), (int) (green * 255), (int) (blue * 255), (int) (alpha * 255))
+                        .setUv(0.0F, 0.0F) // UV coordinates are not used for lines
+                        .setOverlay(OverlayTexture.NO_OVERLAY)
+                        .setLight(light)
+                        .setNormal(normalX, normalY, normalZ);
+            }
+        }
     }
+
+
+
 
 
 
