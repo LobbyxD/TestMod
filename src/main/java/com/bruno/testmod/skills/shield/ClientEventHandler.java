@@ -38,7 +38,7 @@ public class ClientEventHandler {
 
     private static void renderCustomTextureAboveHead(Player player, PoseStack poseStack, MultiBufferSource bufferSource, int light) {
         Minecraft mc = Minecraft.getInstance();
-        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(TestMod.MOD_ID, "textures/entity/orbiting_texture.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(TestMod.MOD_ID, "textures/particle/shield.png");
         float scale = 0.5F; // Adjust the scale as needed
 
         // Calculate the horizontal offset using trigonometric functions
@@ -51,7 +51,7 @@ public class ClientEventHandler {
         int circleColor = 0xFFFFFF; // White color
         int segments = 50; // Number of segments to approximate the circle
         float orbitHeight = player.getBbHeight() + heightAboveHead - 0.2f;
-        drawStackedCircles(poseStack, bufferSource, orbitRadius, segments, circleColor, light, orbitHeight, 5, 0.001f);
+        drawStackedCircles(poseStack, bufferSource, orbitRadius, segments, circleColor, light, orbitHeight, 15, 0.001f);
 
         float circle = (float) (Math.PI * 2);
         float[] initialAngles = {0.0F, circle / 3, circle * 2 / 3};

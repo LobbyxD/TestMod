@@ -7,7 +7,6 @@ import com.bruno.testmod.effect.ModEffects;
 import com.bruno.testmod.enchantment.ModEnchantmentEffects;
 import com.bruno.testmod.entity.ModEntities;
 import com.bruno.testmod.entity.client.BrunoRenderer;
-import com.bruno.testmod.entity.client.menu.CustomChestMenu;
 import com.bruno.testmod.entity.client.menu.ModMenu;
 import com.bruno.testmod.event.damagefloat.DamageNumberParticle;
 import com.bruno.testmod.event.damagefloat.ModParticles;
@@ -22,16 +21,12 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -41,13 +36,8 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
-
-import java.util.Map;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(TestMod.MOD_ID)
@@ -57,7 +47,7 @@ public class TestMod {
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final KeyMapping OPEN_CUSTOM_GUI_KEY = new KeyMapping(
+    public static final KeyMapping OPEN_JOB_GUI_KEY = new KeyMapping(
             "key.testmod.open_custom_gui", // The translation key for the keybinding
             GLFW.GLFW_KEY_G, // The default key (G in this case)
             "key.categories.testmod" // The category for your keybinding
@@ -177,7 +167,7 @@ public class TestMod {
 
     @SubscribeEvent
     public void registerKeyMappings(RegisterKeyMappingsEvent event) {
-        event.register(OPEN_CUSTOM_GUI_KEY);
+        event.register(OPEN_JOB_GUI_KEY);
         event.register(OPEN_CUSTOM_SCREEN);
         event.register(CHANGE_JOB_KEY);
     }

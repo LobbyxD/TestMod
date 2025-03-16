@@ -1,13 +1,11 @@
 package com.bruno.testmod.event;
 import com.bruno.testmod.TestMod;
 import com.bruno.testmod.entity.client.screen.CustomChestScreen;
-import com.bruno.testmod.entity.client.screen.CustomScreen;
+import com.bruno.testmod.screen.custom.JobScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,11 +18,11 @@ public class ModClientInputEvents {
         if (event.phase == TickEvent.Phase.END) {
             Minecraft minecraft = Minecraft.getInstance();
 
-            if (TestMod.OPEN_CUSTOM_GUI_KEY.consumeClick()) {
-                if (minecraft.screen instanceof CustomScreen) {
+            if (TestMod.OPEN_JOB_GUI_KEY.consumeClick()) {
+                if (minecraft.screen instanceof JobScreen) {
                     minecraft.setScreen(null); // Close the current screen
                 } else {
-                    minecraft.setScreen(new CustomScreen()); // Open the custom screen
+                    minecraft.setScreen(new JobScreen()); // Open the custom screen
                 }
             }
 
