@@ -21,6 +21,9 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> HEALING_PARTICLE =
             PARTICLES.register("healing_particle", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> SHARD_PARTICLE =
+            PARTICLES.register("shard_particle", () -> new SimpleParticleType(true));
+
     public static void register(IEventBus eventBus) {
         PARTICLES.register(eventBus);
     }

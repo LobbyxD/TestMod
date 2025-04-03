@@ -7,6 +7,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageSources;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
@@ -14,6 +16,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -54,6 +57,9 @@ public class ZombieRightClickHandler {
                 // Apply knockback and damage
                 applyKnockbackAndDamage(zombie, player);
             }
+            else if(mainHandItem.is(Items.BLAZE_ROD)) {
+                applyShards(zombie, player);
+            }
         }
 
         if (event.getTarget() instanceof Zombie zombie) {
@@ -63,6 +69,52 @@ public class ZombieRightClickHandler {
                 spawnHealingParticlesT2(player);
             }
         }
+    }
+
+    public static void applyShards(Zombie zombie, Player player) {
+        Level level = zombie.level();
+        if (level instanceof ServerLevel serverLevel) {
+            double x = zombie.getX();
+            double y = zombie.getY() + 1; // Slightly above ground
+            double z = zombie.getZ();
+
+            int particleCount = 30;
+            double radius = 0.5; // Small starting radius
+            for (int i = 0; i < particleCount; i++) {
+                double angle = 2 * Math.PI * i / particleCount;
+                double particleX = x + radius * Math.cos(angle);
+                double particleZ = z + radius * Math.sin(angle);
+
+                // Spawn custom shard particles with outward motion
+                serverLevel.sendParticles(
+                        ModParticles.SHARD_PARTICLE.get(),
+                        particleX, y, particleZ, // Position
+                        1, // Count
+                        Math.cos(angle) * 0.2, 0.1, Math.sin(angle) * 0.2, // Velocity
+                        0 // Speed modifier (not used in custom particle)
+                );
+            }
+
+            // Define the radius and damage
+            radius = 4.0;
+            float initialDamage = 5.0f;
+            float delayedDamage = 2.5f;
+
+            // Get all nearby zombies within radius
+            for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, new AABB(x - radius, y - radius, z - radius, x + radius, y + radius, z + radius))) {
+                if (entity instanceof Zombie nearbyZombie) {
+                    nearbyZombie.hurt(player.damageSources().playerAttack(player), initialDamage);
+
+                    // Schedule delayed damage after 350ms (7 ticks)
+                    ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+                    executor.schedule(() -> hurtZombie(zombie, player, delayedDamage), 350, TimeUnit.MILLISECONDS);
+                }
+            }
+        }
+    }
+
+    public static void hurtZombie(Zombie zombie, Player player, float delayedDamage) {
+        zombie.hurt(player.damageSources().playerAttack(player), delayedDamage);
     }
 
     public static void spawnHealingParticlesT2(Player player) {

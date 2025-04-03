@@ -14,7 +14,9 @@ import com.bruno.testmod.item.ModCreativeModeTabs;
 import com.bruno.testmod.item.ModItems;
 import com.bruno.testmod.network.PacketHandler;
 import com.bruno.testmod.potion.ModPotions;
+import com.bruno.testmod.skills.beam.LightRayRenderer;
 import com.bruno.testmod.skills.healing.HealingParticle;
+import com.bruno.testmod.skills.healing.ShardParticle;
 import com.bruno.testmod.sound.ModSounds;
 import com.bruno.testmod.util.ModItemProperties;
 import com.mojang.blaze3d.platform.InputConstants;
@@ -38,6 +40,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
+import org.spongepowered.asm.launch.MixinBootstrap;
+import org.spongepowered.asm.mixin.Mixins;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(TestMod.MOD_ID)
@@ -155,6 +159,7 @@ public class TestMod {
         public static void onClientSetup(FMLClientSetupEvent event) {
             ModItemProperties.addCustomItemProperties();
             EntityRenderers.register(ModEntities.BRUNO.get(), BrunoRenderer::new);
+            EntityRenderers.register(ModEntities.LIGHT_RAY.get(), LightRayRenderer::new);
             PacketHandler.register();
         }
 
@@ -162,6 +167,7 @@ public class TestMod {
         public static void registerParticleProvider(RegisterParticleProvidersEvent event) {
             event.registerSpecial(ModParticles.DAMAGE_NUMBER_PARTICLE.get(), new DamageNumberParticle.Factory(null));
             event.registerSpriteSet(ModParticles.HEALING_PARTICLE.get(), HealingParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.SHARD_PARTICLE.get(), ShardParticle.Provider::new);
         }
     }
 

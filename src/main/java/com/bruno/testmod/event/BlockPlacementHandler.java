@@ -1,5 +1,6 @@
 package com.bruno.testmod.event;
 
+import com.bruno.testmod.block.ModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -42,7 +43,7 @@ public class BlockPlacementHandler {
     private static boolean shouldCancelPlacement(PlayerInteractEvent.RightClickBlock event) {
         Player player = event.getEntity();
         ItemStack heldItem = player.getItemInHand(event.getHand());
-        if (heldItem.getItem() instanceof BlockItem blockItem) {
+        if (heldItem.getItem() instanceof BlockItem blockItem && blockItem.getBlock() == ModBlocks.HIGH_BLOCK.get()) {
             Block blockToPlace = blockItem.getBlock();
             BlockPos clickedPos = event.getPos();
 
